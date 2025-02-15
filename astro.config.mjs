@@ -25,9 +25,6 @@ const config = {
 	},
 	experimental: {
 		session: true
-	},
-	session: {
-		driver: process.env.NETLIFY ? "netlify-blobs" : "fs"
 	}
 }
 
