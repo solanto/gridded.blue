@@ -27,7 +27,7 @@ const config = {
 		session: true
 	},
 	session: {
-		driver: process.env.VERCEL ? "vercel-kv" : "fs"
+		driver: process.env.NETLIFY ? "netlify-blobs" : "fs"
 	}
 }
 
