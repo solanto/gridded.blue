@@ -16,7 +16,8 @@
 		"@vercel/kv": "^3.0.0",
 		"astro": "^5.2.5",
 		"is-valid-domain": "^0.1.6",
-		"p-memoize": "^7.1.1"
+		"p-memoize": "^7.1.1",
+		"unstorage": "^1.14.4"
 	},
 	"devDependencies": {
 		"@atproto-labs/simple-store": "^0.1.2",
