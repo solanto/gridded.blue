@@ -13,13 +13,7 @@ const { SITE_URL } = loadEnv(
 export default defineConfig({
 	output: "server",
 	adapter: vercel({
-		isr: true,
-		edgeMiddleware: true,
-		imageService: true,
-		imagesConfig: {
-			domains: ["bsky.app"],
-			sizes: [1400, 500, 200]
-		}
+		edgeMiddleware: true
 	}),
 	site: SITE_URL,
 	vite: {
