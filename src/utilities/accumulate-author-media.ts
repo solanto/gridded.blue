@@ -127,7 +127,9 @@ const feedItemReducer = (whitelist: Whitelist) =>
 	}
 
 export default async function accumulateAuthorMedia(
-	agent: Agent,
+	getAuthorFeed: InstanceType<
+		typeof Agent
+	>["getAuthorFeed"],
 	author: string,
 	quota: number,
 	whitelist: Whitelist,
@@ -139,7 +141,7 @@ export default async function accumulateAuthorMedia(
 
 	const assuredLimit = limit ?? 30
 
-	const { data } = await agent.getAuthorFeed({
+	const { data } = await getAuthorFeed({
 		actor: author,
 		cursor,
 		filter: "posts_with_media",
@@ -160,7 +162,7 @@ export default async function accumulateAuthorMedia(
 		}
 
 	return accumulateAuthorMedia(
-		agent,
+		getAuthorFeed,
 		author,
 		quota - increment.length,
 		whitelist,

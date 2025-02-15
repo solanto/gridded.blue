@@ -1,7 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro"
-import publicAgent from "../utilities/public-agent"
-import isValidHandle from "@atproto/syntax"
+import publicClient from "../utilities/public-client"
+import { isValidHandle } from "@atproto/syntax"
 import { XRPCError, ResponseType } from "@atproto/xrpc"
 
 const profile = Astro.url.searchParams.get("profile")
@@ -15,7 +15,14 @@ if (profile) {
 	try {
 		const {
 			data: { displayName }
-		} = await publicAgent.getProfile({ actor: profile })
+		} = await publicClient.get(
+			"app.bsky.actor.getProfile",
+			{
+				params: {
+					actor: profile as string
+				}
+			}
+		)
 
 		if (displayName) profileName = displayName
 	} catch (error) {

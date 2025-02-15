@@ -7,10 +7,8 @@ export const GET: APIRoute = async ({
 }) => {
 	session?.regenerate()
 
-	const identity = "https://bsky.social"
-
 	return Response.redirect(
-		await client.authorize(identity, {
+		await client.authorize("https://bsky.social", {
 			state: JSON.stringify(
 				Object.fromEntries(searchParams)
 			)

@@ -1,5 +1,5 @@
 import type { APIContext } from "astro"
-import publicAgent from "./public-agent"
+import publicClient from "./public-client"
 import type { Did } from "@atproto/api"
 import type { ProfileViewDetailed } from "@atproto/api/dist/client/types/app/bsky/actor/defs"
 
@@ -68,9 +68,14 @@ export async function profile(session: MaybeSession) {
 	)) as ProfileViewDetailed
 
 	if (!sessionProfile) {
-		const { data } = await publicAgent.getProfile({
-			actor: sessionDid
-		})
+		const { data } = await publicClient.get(
+			"app.bsky.actor.getProfile",
+			{
+				params: {
+					actor: sessionDid
+				}
+			}
+		)
 
 		session.set("profile", data)
 

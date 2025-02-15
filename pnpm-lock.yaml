@@ -11,6 +11,12 @@ importers:
       '@astrojs/netlify':
         specifier: ^6.2.0
         version: 6.2.0(@types/node@22.13.4)(astro@5.3.0(@netlify/blobs@8.1.1)(@types/node@22.13.4)(@upstash/redis@1.34.4)(rollup@4.34.7)(typescript@5.7.3))(rollup@4.34.7)
+      '@atcute/bluesky':
+        specifier: ^1.0.12
+        version: 1.0.12(@atcute/client@2.0.7)
+      '@atcute/client':
+        specifier: ^2.0.7
+        version: 2.0.7
       '@atproto/api':
         specifier: ^0.13.35
         version: 0.13.35
@@ -32,6 +38,9 @@ importers:
       p-memoize:
         specifier: ^7.1.1
         version: 7.1.1
+      seamless-scroll-polyfill:
+        specifier: ^2.3.4
+        version: 2.3.4
       unstorage:
         specifier: ^1.14.4
         version: 1.14.4(@netlify/blobs@8.1.1)(@upstash/redis@1.34.4)
@@ -87,6 +96,14 @@ packages:
 
   '@astrojs/underscore-redirects@0.6.0':
     resolution: {integrity: sha512-dnJgFpaM955IFNIkEEmMaaIdWXRdeZs1ID6mlGBqdjh6NiCXfKmOdq7L4fd9Dd/tr18fkLrOJ25IUJSxRAEhjQ==}
+
+  '@atcute/bluesky@1.0.12':
+    resolution: {integrity: sha512-oUM+MxD5asGYyQDOHBGay7f9ryhsBpQ8LTUmsEZvp4t/WG0ZV2AcFRWsG0DxB+CsmSTbP2DHLMZCatE3usmt+g==}
+    peerDependencies:
+      '@atcute/client': ^1.0.0 || ^2.0.0
+
+  '@atcute/client@2.0.7':
+    resolution: {integrity: sha512-bvNahrCGvhZw/EIx0HU/GOoKZEnUaAppbuZh7cu+VsOFA2tdFLnZJed9Hagh5Yz/eUX7QUh5NB4dRTRUdggSLQ==}
 
   '@atproto-labs/did-resolver@0.1.10':
     resolution: {integrity: sha512-o/bl5acf3AIPKZuO6Fd5EmO4INGpi/3Pm08ZpHNCy7s4VZXFmAjZaHeCD7hQ8yEL0EtXnLNIECtKrTBTTx8b+A==}
@@ -1563,6 +1580,9 @@ packages:
   sass-formatter@0.7.9:
     resolution: {integrity: sha512-CWZ8XiSim+fJVG0cFLStwDvft1VI7uvXdCNJYXhDvowiv+DsbD1nXLiQ4zrE5UBvj5DWZJ93cwN0NX5PMsr1Pw==}
 
+  seamless-scroll-polyfill@2.3.4:
+    resolution: {integrity: sha512-Biobd4LDoeFODX1bfiru84GveSajzFELFB3ejMZsRR2TpD73W46uEZYAEqSx5RtKpN2umhGWaoSRivs0ZcHp9g==}
+
   semver@7.7.1:
     resolution: {integrity: sha512-hlq8tAfn0m/61p4BVRcPzIGr6LKiMwo4VM6dGi6pt4qcRkmNzTcWq6eCEjEh+qXjkMDvPlOFFSGwQjoEa6gyMA==}
     engines: {node: '>=10'}
@@ -2019,6 +2039,12 @@ snapshots:
       - supports-color
 
   '@astrojs/underscore-redirects@0.6.0': {}
+
+  '@atcute/bluesky@1.0.12(@atcute/client@2.0.7)':
+    dependencies:
+      '@atcute/client': 2.0.7
+
+  '@atcute/client@2.0.7': {}
 
   '@atproto-labs/did-resolver@0.1.10':
     dependencies:
@@ -3798,6 +3824,8 @@ snapshots:
   sass-formatter@0.7.9:
     dependencies:
       suf-log: 2.5.3
+
+  seamless-scroll-polyfill@2.3.4: {}
 
   semver@7.7.1: {}
 

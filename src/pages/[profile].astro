@@ -1,9 +1,9 @@
 ---
-import publicAgent from "../utilities/public-agent"
-import accumulateAuthorMedia, { type Whitelist, whitelistFromSearchParams } from "../utilities/accumulate-author-media"
+import publicClient from "../utilities/public-client"
+import accumulateAuthorMedia, { whitelistFromSearchParams } from "../utilities/accumulate-author-media"
 import uriToLink from "../utilities/uri-to-link"
 import client from "../utilities/client"
-import { Agent } from "@atproto/api"
+import { Agent, type AppBskyFeedGetAuthorFeed } from "@atproto/api"
 import { TokenRefreshError } from "@atproto/oauth-client-node"
 import stateParams from "../utilities/state-params"
 import { Image } from "astro:assets"
@@ -11,7 +11,7 @@ import * as SessionGetter from "../utilities/session-getter"
 import Layout from "../layouts/Layout.astro"
 import Header from "../components/Header.astro"
 import { XRPCError } from "@atproto/xrpc"
-import inputBoolean from "../utilities/input-boolean"
+import "@atcute/bluesky/lexicons"
 
 const { profile } = Astro.params as {
 	profile: string
@@ -38,9 +38,13 @@ if (!Object.values(labelWhitelist).some(value => value)) {
 
 const { isProfilePublic } = Astro.locals
 
-const identity = await SessionGetter.identity(Astro.session)
+const identity = await SessionGetter.identity(Astro.session as any)
 
-let agent: Agent = publicAgent
+let getAuthorFeed =
+	(params: AppBskyFeedGetAuthorFeed.QueryParams) => publicClient.get(
+		"app.bsky.feed.getAuthorFeed",
+		{ params }
+	) as Promise<AppBskyFeedGetAuthorFeed.Response>
 
 const loginPromptRedirect = Astro.redirect(
 	"/?" + stateParams(Astro.url.searchParams, profile)
@@ -48,9 +52,11 @@ const loginPromptRedirect = Astro.redirect(
 
 if (identity)
 	try {
-		agent = new Agent(
+		const agent = new Agent(
 			await client.restore(identity.did)
 		)
+
+		getAuthorFeed = agent.getAuthorFeed
 	} catch (error) {
 		if (error instanceof TokenRefreshError)
 			return loginPromptRedirect
@@ -60,7 +66,7 @@ else if (!isProfilePublic) return loginPromptRedirect
 let data
 
 const accumulatorArguments = [
-	agent,
+	getAuthorFeed,
 	profile,
 	36,
 	whitelist,
@@ -69,9 +75,14 @@ const accumulatorArguments = [
 
 const {
 	data: profileData
-} = await agent.getProfile({
-	actor: profile
-})
+} = await publicClient.get(
+	"app.bsky.actor.getProfile",
+	{
+		params: {
+			actor: profile as string
+		}
+	}
+)
 
 try {
 	data = await accumulateAuthorMedia(
@@ -245,14 +256,17 @@ else nextParams.delete("cursor")
 </Layout>
 
 <script>
-	import publicAgent from "../utilities/public-agent"
+	import publicClient from "../utilities/public-client"
+	import { scrollIntoView } from "seamless-scroll-polyfill"
+	import type { IScrollConfig } from "seamless-scroll-polyfill/lib/scroll-step.d.ts"
 
 	const actorDatalist = document.getElementById("actor-datalist")
+	const actorInputBox = document.getElementById("actor-input-box")
 
-	document.getElementById("actor-input-box")
+	actorInputBox
 		?.addEventListener("input",
-			({ target }) => (target as HTMLInputElement).value && publicAgent.searchActorsTypeahead(
-				{ q: (target as HTMLInputElement).value }
+			({ target }) => (target as HTMLInputElement).value && publicClient.get("app.bsky.actor.searchActorsTypeahead",
+				{ params: { q: (target as HTMLInputElement).value } }
 			).then(
 				({ data: { actors } }) => {
 					const options = actors.map(
@@ -272,5 +286,25 @@ else nextParams.delete("cursor")
 					}
 				}
 			)
+		)
+
+	const scrollOptions: ScrollIntoViewOptions = {
+		block: "start",
+		inline: "nearest",
+		behavior: "smooth"
+	}
+
+	const scrollConfig: IScrollConfig = {
+		duration: 300
+	}
+
+	actorInputBox
+		?.addEventListener("focusin",
+			() => scrollIntoView(actorInputBox, scrollOptions, scrollConfig)
+		)
+
+	actorInputBox
+		?.addEventListener("focusout",
+			() => scrollIntoView(document.body, scrollOptions, scrollConfig)
 		)
 </script>

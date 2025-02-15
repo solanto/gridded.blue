@@ -10,6 +10,8 @@
 	},
 	"dependencies": {
 		"@astrojs/netlify": "^6.2.0",
+		"@atcute/bluesky": "^1.0.12",
+		"@atcute/client": "^2.0.7",
 		"@atproto/api": "^0.13.35",
 		"@atproto/jwk-jose": "^0.1.4",
 		"@atproto/oauth-client-node": "^0.2.11",
@@ -17,6 +19,7 @@
 		"astro": "^5.3.0",
 		"node:punycode": "npm:punycode",
 		"p-memoize": "^7.1.1",
+		"seamless-scroll-polyfill": "^2.3.4",
 		"unstorage": "^1.14.4"
 	},
 	"devDependencies": {
