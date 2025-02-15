@@ -1,0 +1,13 @@
+---
+import Error from "../../layouts/Error.astro"
+import BackLink from "../../components/BackLink.astro"
+
+Astro.response.status = 400
+---
+
+<Error code={Astro.response.status}>
+	We couldn't find the profile you requested. Try going
+	<BackLink>back</BackLink> or going <a href="/profile"
+		>home</a
+	>.
+</Error>

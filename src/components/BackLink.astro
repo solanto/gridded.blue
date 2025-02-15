@@ -1,0 +1,17 @@
+<span class="back-link"><slot /></span><script>
+	document
+		.querySelectorAll(".back-link")
+		.forEach(link => {
+			link.addEventListener("click", () =>
+				history.back()
+			)
+
+			link.classList.add("hydrated")
+		})
+</script><style is:global>
+	.back-link.hydrated {
+		text-decoration: underline;
+		color: linktext;
+		cursor: pointer;
+	}
+</style>

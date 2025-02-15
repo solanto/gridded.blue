@@ -1,0 +1,11 @@
+---
+import Error from "../layouts/Error.astro"
+import BackLink from "../components/BackLink.astro"
+---
+
+<Error code={404}>
+	We couldn't find the page you requested. Try going
+	<BackLink>back</BackLink> or going <a href="/profile"
+		>home</a
+	>.
+</Error>

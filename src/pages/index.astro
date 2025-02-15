@@ -1,11 +1,66 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import Layout from "../layouts/Layout.astro"
+import publicAgent from "../utilities/public-agent"
+import isValidDomain from "is-valid-domain"
+import { XRPCError, ResponseType } from "@atproto/xrpc"
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const profile = Astro.url.searchParams.get("profile")
+
+let profileName = profile as string
+
+if (profile) {
+	if (!isValidDomain(profile))
+		return Astro.redirect("/", 307)
+
+	try {
+		const {
+			data: { displayName }
+		} = await publicAgent.getProfile({ actor: profile })
+
+		if (displayName) profileName = displayName
+	} catch (error) {
+		if (
+			error instanceof XRPCError &&
+			error.status == ResponseType.InvalidRequest
+		)
+			return Astro.redirect("/", 307)
+		else throw error
+	}
+}
 ---
 
 <Layout>
-	<Welcome />
+	<main>
+		<h1>welcome to gridded.blue!</h1>
+		<p>
+			gridded.blue is a gridded media viewer for <a
+				href="https://bsky.social">Bluesky</a
+			>.
+		</p>
+		<a
+			href={`/login?${Astro.url.searchParams}`}
+			class="link-button"
+			id="log-in"
+		>
+			log in
+		</a>
+		{
+			profile ?
+				<span>
+					{" "}
+					to view{" "}
+					{profileName +
+						(profileName.endsWith("s") ? "'" : (
+							"'s"
+						))}{" "}
+					profile.
+				</span>
+			:	<a
+					href={`/bsky.app`}
+					class="link-button unimportant"
+				>
+					view a public profile
+				</a>
+		}
+	</main>
 </Layout>

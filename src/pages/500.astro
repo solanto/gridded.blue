@@ -1,0 +1,11 @@
+---
+import BackLink from "../components/BackLink.astro"
+import Error from "../layouts/Error.astro"
+---
+
+<Error code={500}>
+	Internal server error. Try reloading the page, going
+	<BackLink>back</BackLink>, or going <a href="/profile"
+		>home</a
+	>.
+</Error>

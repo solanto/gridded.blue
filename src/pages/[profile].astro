@@ -1,0 +1,276 @@
+---
+import publicAgent from "../utilities/public-agent"
+import accumulateAuthorMedia, { type Whitelist, whitelistFromSearchParams } from "../utilities/accumulate-author-media"
+import uriToLink from "../utilities/uri-to-link"
+import client from "../utilities/client"
+import { Agent } from "@atproto/api"
+import { TokenRefreshError } from "@atproto/oauth-client-node"
+import stateParams from "../utilities/state-params"
+import { Image } from "astro:assets"
+import * as SessionGetter from "../utilities/session-getter"
+import Layout from "../layouts/Layout.astro"
+import Header from "../components/Header.astro"
+import { XRPCError } from "@atproto/xrpc"
+import inputBoolean from "../utilities/input-boolean"
+
+const { profile } = Astro.params as {
+	profile: string
+}
+
+const cursor = Astro.url.searchParams.get("cursor")
+
+const whitelist = whitelistFromSearchParams(Astro.url.searchParams)
+
+if (!Object.values(whitelist).some(value => value)) {
+	Astro.url.searchParams.set("reply", "on")
+	Astro.url.searchParams.set("unlabeled", "on")
+
+	return Astro.redirect(Astro.url)
+}
+
+const { reply: _, ...labelWhitelist } = whitelist
+
+if (!Object.values(labelWhitelist).some(value => value)) {
+	Astro.url.searchParams.set("unlabeled", "on")
+
+	return Astro.redirect(Astro.url)
+}
+
+const { isProfilePublic } = Astro.locals
+
+const identity = await SessionGetter.identity(Astro.session)
+
+let agent: Agent = publicAgent
+
+const loginPromptRedirect = Astro.redirect(
+	"/?" + stateParams(Astro.url.searchParams, profile)
+)
+
+if (identity)
+	try {
+		agent = new Agent(
+			await client.restore(identity.did)
+		)
+	} catch (error) {
+		if (error instanceof TokenRefreshError)
+			return loginPromptRedirect
+	}
+else if (!isProfilePublic) return loginPromptRedirect
+
+let data
+
+const accumulatorArguments = [
+	agent,
+	profile,
+	36,
+	whitelist,
+	undefined
+] satisfies Parameters<typeof accumulateAuthorMedia>
+
+const {
+	data: profileData
+} = await agent.getProfile({
+	actor: profile
+})
+
+try {
+	data = await accumulateAuthorMedia(
+		...accumulatorArguments,
+		cursor ?? undefined
+	)
+} catch (error) {
+	if (error instanceof XRPCError) {
+		console.log({...error})
+
+		data = await accumulateAuthorMedia(
+			...accumulatorArguments
+		)
+	} else throw error
+}
+
+const { media, cursor: nextCursor } = data
+
+const nextParams = new URLSearchParams(Astro.url.searchParams)
+
+if (nextCursor) nextParams.set("cursor", nextCursor)
+else nextParams.delete("cursor")
+---
+
+<Layout>
+	<Header identity={identity} />
+	<main>
+		<form
+			action="/profile"
+			class="query-form"
+		>
+			<div class="toggles">
+				<label
+					for="reply-toggle"
+					class="check-button"
+				>
+					<input
+						type="checkbox"
+						id="reply-toggle"
+						name="reply"
+						checked={whitelist.reply},
+					/>
+					replies
+				</label>
+				<fieldset class="labels">
+					<label
+						for="unlabeled-toggle"
+						class="check-button"
+					>
+						<input
+							type="checkbox"
+							id="unlabeled-toggle"
+							name="unlabeled"
+							checked={whitelist.unlabeled},
+						/>
+						unlabeled
+					</label>
+					<label
+						for="suggestive-toggle"
+						class="check-button important"
+					>
+						<input
+							type="checkbox"
+							id="suggestive-toggle"
+							name="suggestive"
+							checked={whitelist.suggestive}
+						/>
+						suggestive
+					</label>
+					<label
+						for="nudity-toggle"
+						class="check-button important"
+					>
+						<input
+							type="checkbox"
+							id="nudity-toggle"
+							name="nudity"
+							checked={whitelist.nudity}
+						/>
+						nudity
+					</label>
+					<label
+						for="adult-toggle"
+						class="check-button important"
+					>
+						<input
+							type="checkbox"
+							id="adult-toggle"
+							name="adult"
+							checked={whitelist.adult}
+						/>
+						adult
+					</label>
+				</fieldset>
+			</div>
+			<fieldset class="actor-section">
+				<div class="actor-input">
+					<input
+						name="profile"
+						type="search"
+						value={profile}
+						placeholder="username.bsky.social"
+						autocorrect="off"
+						autocapitalize="off"
+						spellcheck="false"
+						id="actor-input-box"
+						list="actor-datalist"
+					/>
+					<datalist id="actor-datalist"></datalist>
+				</div>
+				<button type="submit">view</button>
+			</fieldset>
+		</form>
+		<section class="profile-info">
+			<Image
+				src={profileData.banner ?? "/images/blank.png"}
+				alt=""
+				width="1500"
+				height="500"
+				class="banner"
+			/>
+			<Image
+				src={profileData.avatar ?? "/images/blank.png"}
+				alt=""
+				width={12}
+				height={12}
+				class="profile-icon"
+			/>
+			<h1>{profileData.displayName}</h1>
+			<p class="bio">{profileData.description}</p>
+		</section>
+		<details>
+			<summary>share profile</summary>
+			<p>
+				Hit the <i class="share">share</i> button in your browser or copy and
+				paste a link to this page for anyone to view this profile
+				with the filters you've selected. ☺️
+			</p>
+		</details>
+		<ol class="feed">
+			{
+				media.map(
+					({ thumbnail, alt, uri, flag }) => (
+						<li class={flag ?? null}>
+							{
+								flag == "multiple" ?
+									<span class="flag">multiple images: </span>
+									: flag == "video" ?
+										<span class="flag">video: </span>
+										: <></>
+							}
+							<a
+								href={uriToLink(
+									profile,
+									uri
+								)}
+							>
+								<Image
+									src={thumbnail}
+									alt={alt}
+									inferSize={true}
+								/>
+							</a>
+						</li>
+					)
+				)
+			}
+		</ol>
+		{ nextCursor === null ? <></> : <a class="link-button" href={`/${profile}?${nextParams}`}>next</a> }
+	</main>
+</Layout>
+
+<script>
+	import publicAgent from "../utilities/public-agent"
+
+	const actorDatalist = document.getElementById("actor-datalist")
+
+	document.getElementById("actor-input-box")
+		?.addEventListener("input",
+			({ target }) => (target as HTMLInputElement).value && publicAgent.searchActorsTypeahead(
+				{ q: (target as HTMLInputElement).value }
+			).then(
+				({ data: { actors } }) => {
+					const options = actors.map(
+						({ handle }) =>  {
+							const option = document.createElement("option")
+							option.setAttribute("value", handle)
+
+							return option
+						}
+					)
+
+					if (actorDatalist) {
+						actorDatalist.textContent = ""
+
+						for (const option of options)
+							actorDatalist.appendChild(option)
+					}
+				}
+			)
+		)
+</script>

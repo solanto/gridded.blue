@@ -1,0 +1,52 @@
+---
+import * as SessionGetter from "../utilities/session-getter"
+import { Image } from "astro:assets"
+
+interface Props {
+	identity: SessionGetter.Identity
+}
+
+const { identity } = Astro.props
+---
+
+<header>
+	<div class="auth">
+		{
+			identity?.profile.avatar ?
+				<Image
+					src={identity.profile.avatar}
+					alt=""
+					inferSize
+					class="profile-icon"
+				/>
+			: <></>
+		}
+		<div class="status">
+			{
+				identity ?
+					<>
+						<span>logged in as </span>
+						{identity.profile.displayName ?
+							<span>
+								{
+									identity.profile
+										.displayName
+								}{" "}
+							</span>
+						:	null}
+						<a
+							class="handle"
+							href={`/${identity.profile.handle}`}
+						>
+							@{identity.profile.handle}
+						</a>
+					</>
+				:	<></>
+			}
+		</div>
+	</div>
+	{ identity ?
+		<a class="log-out" href="/logout">log out</a>
+		: <a class="log-out" href="/">home</a>
+	}
+</header>
