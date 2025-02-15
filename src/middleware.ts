@@ -1,8 +1,8 @@
 import type { MiddlewareHandler } from "astro"
 import publicAgent from "./utilities/public-agent"
 import { ResponseType, XRPCError } from "@atproto/xrpc"
-import isValidDomain from "is-valid-domain"
 import { sequence } from "astro:middleware"
+import { isValidHandle } from "@atproto/syntax"
 
 const removeEmptyQuery: MiddlewareHandler = async (
 	{ url: { href, pathname }, redirect },
@@ -20,7 +20,7 @@ const map: Record<string, MiddlewareHandler> = {
 			{ params: { profile }, locals, rewrite },
 			next
 		) => {
-			if (!isValidDomain(profile as string))
+			if (!isValidHandle(profile as string))
 				return rewrite("/404")
 
 			try {

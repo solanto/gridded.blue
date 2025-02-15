@@ -1,7 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro"
 import publicAgent from "../utilities/public-agent"
-import isValidDomain from "is-valid-domain"
+import isValidHandle from "@atproto/syntax"
 import { XRPCError, ResponseType } from "@atproto/xrpc"
 
 const profile = Astro.url.searchParams.get("profile")
@@ -9,7 +9,7 @@ const profile = Astro.url.searchParams.get("profile")
 let profileName = profile as string
 
 if (profile) {
-	if (!isValidDomain(profile))
+	if (!isValidHandle(profile))
 		return Astro.redirect("/", 307)
 
 	try {

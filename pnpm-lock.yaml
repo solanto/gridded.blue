@@ -20,15 +20,15 @@ importers:
       '@atproto/oauth-client-node':
         specifier: ^0.2.11
         version: 0.2.11
+      '@atproto/syntax':
+        specifier: ^0.3.3
+        version: 0.3.3
       '@vercel/kv':
         specifier: ^3.0.0
         version: 3.0.0
       astro:
         specifier: ^5.3.0
         version: 5.3.0(@types/node@22.13.4)(@upstash/redis@1.34.4)(@vercel/kv@3.0.0)(rollup@4.34.7)(typescript@5.7.3)
-      is-valid-domain:
-        specifier: ^0.1.6
-        version: 0.1.6
       node:punycode:
         specifier: npm:punycode
         version: punycode@2.3.1
@@ -1491,9 +1491,6 @@ packages:
   is-plain-obj@4.1.0:
     resolution: {integrity: sha512-+Pgi+vMuUNkJyExiMBt5IlFoMyKnr5zhJ4Uspz58WOhBF5QoIZkFyNHIbBAtHwzVAgk5RtndVNsDRN61/mmDqg==}
     engines: {node: '>=12'}
-
-  is-valid-domain@0.1.6:
-    resolution: {integrity: sha512-ZKtq737eFkZr71At8NxOFcP9O1K89gW3DkdrGMpp1upr/ueWjj+Weh4l9AI4rN0Gt8W2M1w7jrG2b/Yv83Ljpg==}
 
   is-wsl@3.1.0:
     resolution: {integrity: sha512-UcVfVfaK4Sc4m7X3dUSoHoozQGBEFeDC+zVo06t98xe8CzHSZZBekNXH+tu0NalHolcJ/QAGqS46Hef7QXBIMw==}
@@ -4162,10 +4159,6 @@ snapshots:
   is-number@7.0.0: {}
 
   is-plain-obj@4.1.0: {}
-
-  is-valid-domain@0.1.6:
-    dependencies:
-      punycode: 2.3.1
 
   is-wsl@3.1.0:
     dependencies:
