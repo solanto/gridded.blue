@@ -1,6 +1,5 @@
 // @ts-check
 import vercel from "@astrojs/vercel"
-import { defineConfig } from "astro/config"
 import { loadEnv } from "vite"
 
 const { SITE_URL } = loadEnv(
@@ -10,7 +9,7 @@ const { SITE_URL } = loadEnv(
 )
 
 // https://astro.build/config
-export default defineConfig({
+const config = {
 	output: "server",
 	adapter: vercel({
 		edgeMiddleware: true
@@ -25,8 +24,11 @@ export default defineConfig({
 		domains: ["bsky.app"]
 	},
 	experimental: {
-		session: {
-			driver: process.env.VERCEL ? "vercel-kv" : "fs"
-		}
+		session: true
+	},
+	session: {
+		driver: process.env.VERCEL ? "vercel-kv" : "fs"
 	}
-})
+}
+
+export default config
