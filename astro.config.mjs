@@ -14,7 +14,12 @@ export default defineConfig({
 	output: "server",
 	adapter: vercel({
 		isr: true,
-		edgeMiddleware: true
+		edgeMiddleware: true,
+		imageService: true,
+		imagesConfig: {
+			domains: ["bsky.app"],
+			sizes: [1400, 500, 200]
+		}
 	}),
 	site: SITE_URL,
 	vite: {
@@ -27,7 +32,7 @@ export default defineConfig({
 	},
 	experimental: {
 		session: {
-			driver: "fs"
+			driver: process.env.VERCEL ? "vercel-kv" : "fs"
 		}
 	}
 })
