@@ -1,5 +1,33 @@
 // @ts-check
-import { defineConfig } from 'astro/config';
+import vercel from "@astrojs/vercel"
+import { defineConfig } from "astro/config"
+import { loadEnv } from "vite"
+
+const { SITE_URL } = loadEnv(
+	process.env.SITE_URL ?? "",
+	process.cwd(),
+	""
+)
 
 // https://astro.build/config
-export default defineConfig({});
+export default defineConfig({
+	output: "server",
+	adapter: vercel({
+		isr: true,
+		edgeMiddleware: true
+	}),
+	site: SITE_URL,
+	vite: {
+		server: {
+			allowedHosts: [".share.zrok.io"]
+		}
+	},
+	image: {
+		domains: ["bsky.app"]
+	},
+	experimental: {
+		session: {
+			driver: "fs"
+		}
+	}
+})

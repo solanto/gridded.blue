@@ -1,14 +1,45 @@
 {
-  "name": "gridded-blue",
-  "type": "module",
-  "version": "0.0.1",
-  "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview",
-    "astro": "astro"
-  },
-  "dependencies": {
-    "astro": "^5.2.5"
-  }
+	"name": "gridded-blue",
+	"type": "module",
+	"version": "0.0.1",
+	"scripts": {
+		"dev": "astro dev --host",
+		"build": "astro build",
+		"preview": "astro preview",
+		"astro": "astro"
+	},
+	"dependencies": {
+		"@astrojs/vercel": "^8.0.6",
+		"@atproto/api": "^0.13.33",
+		"@atproto/jwk-jose": "^0.1.4",
+		"@atproto/oauth-client-node": "^0.2.10",
+		"@vercel/kv": "^3.0.0",
+		"astro": "^5.2.5",
+		"is-valid-domain": "^0.1.6",
+		"p-memoize": "^7.1.1"
+	},
+	"devDependencies": {
+		"@atproto-labs/simple-store": "^0.1.2",
+		"@atproto/xrpc": "^0.6.8",
+		"@types/node": "^22.13.1",
+		"prettier": "^3.4.2",
+		"prettier-plugin-astro": "^0.14.1",
+		"ts-import": "5.0.0-beta.0",
+		"typescript": "^5.7.3",
+		"vercel": "^41.0.2",
+		"vite": "^6.1.0"
+	},
+	"prettier": {
+		"useTabs": true,
+		"arrowParens": "avoid",
+		"embeddedLanguageFormatting": "auto",
+		"experimentalTernaries": true,
+		"htmlWhitespaceSensitivity": "css",
+		"semi": false,
+		"tabWidth": 4,
+		"trailingComma": "none",
+		"endOfLine": "lf",
+		"bracketSameLine": false,
+		"printWidth": 60
+	}
 }
