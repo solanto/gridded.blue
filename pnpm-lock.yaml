@@ -8,9 +8,9 @@ importers:
 
   .:
     dependencies:
-      '@astrojs/vercel':
-        specifier: ^8.0.7
-        version: 8.0.7(astro@5.3.0(@types/node@22.13.4)(@upstash/redis@1.34.4)(@vercel/kv@3.0.0)(rollup@4.34.7)(typescript@5.7.3))(rollup@4.34.7)
+      '@astrojs/netlify':
+        specifier: ^6.2.0
+        version: 6.2.0(@types/node@22.13.4)(astro@5.3.0(@netlify/blobs@8.1.1)(@types/node@22.13.4)(@upstash/redis@1.34.4)(rollup@4.34.7)(typescript@5.7.3))(rollup@4.34.7)
       '@atproto/api':
         specifier: ^0.13.35
         version: 0.13.35
@@ -23,12 +23,9 @@ importers:
       '@atproto/syntax':
         specifier: ^0.3.3
         version: 0.3.3
-      '@vercel/kv':
-        specifier: ^3.0.0
-        version: 3.0.0
       astro:
         specifier: ^5.3.0
-        version: 5.3.0(@types/node@22.13.4)(@upstash/redis@1.34.4)(@vercel/kv@3.0.0)(rollup@4.34.7)(typescript@5.7.3)
+        version: 5.3.0(@netlify/blobs@8.1.1)(@types/node@22.13.4)(@upstash/redis@1.34.4)(rollup@4.34.7)(typescript@5.7.3)
       node:punycode:
         specifier: npm:punycode
         version: punycode@2.3.1
@@ -37,7 +34,7 @@ importers:
         version: 7.1.1
       unstorage:
         specifier: ^1.14.4
-        version: 1.14.4(@upstash/redis@1.34.4)(@vercel/kv@3.0.0)
+        version: 1.14.4(@netlify/blobs@8.1.1)(@upstash/redis@1.34.4)
     devDependencies:
       '@atproto-labs/simple-store':
         specifier: ^0.1.2
@@ -78,6 +75,11 @@ packages:
   '@astrojs/markdown-remark@6.1.0':
     resolution: {integrity: sha512-emZNNSTPGgPc3V399Cazpp5+snogjaF04ocOSQn9vy3Kw/eIC4vTQjXOrWDEoSEy+AwPDZX9bQ4wd3bxhpmGgQ==}
 
+  '@astrojs/netlify@6.2.0':
+    resolution: {integrity: sha512-96oXxWaHgAFXm4ZPQhs1QjDwTwIqbfRttG7eWYqHonB8cGKfnOl5OATdJTqsIuTufuJDxdvee31u4iAli9mvJQ==}
+    peerDependencies:
+      astro: ^5.3.0
+
   '@astrojs/prism@3.2.0':
     resolution: {integrity: sha512-GilTHKGCW6HMq7y3BUv9Ac7GMe/MO9gi9GW62GzKtth0SwukCu/qp2wLiGpEujhY+VVhaG9v7kv/5vFzvf4NYw==}
     engines: {node: ^18.17.1 || ^20.3.0 || >=22.0.0}
@@ -86,10 +88,8 @@ packages:
     resolution: {integrity: sha512-wxhSKRfKugLwLlr4OFfcqovk+LIFtKwLyGPqMsv+9/ibqqnW3Gv7tBhtKEb0gAyUAC4G9BTVQeQahqnQAhd6IQ==}
     engines: {node: ^18.17.1 || ^20.3.0 || >=22.0.0}
 
-  '@astrojs/vercel@8.0.7':
-    resolution: {integrity: sha512-2DPqPGZ/Et4afpJt8CAoIql2S649rzEmLBNJPHUGBysP0JklMaZ05HhQVKr+qEhZSm3NrVccxpkiIG/eLW3nPg==}
-    peerDependencies:
-      astro: ^5.0.0
+  '@astrojs/underscore-redirects@0.6.0':
+    resolution: {integrity: sha512-dnJgFpaM955IFNIkEEmMaaIdWXRdeZs1ID6mlGBqdjh6NiCXfKmOdq7L4fd9Dd/tr18fkLrOJ25IUJSxRAEhjQ==}
 
   '@atproto-labs/did-resolver@0.1.10':
     resolution: {integrity: sha512-o/bl5acf3AIPKZuO6Fd5EmO4INGpi/3Pm08ZpHNCy7s4VZXFmAjZaHeCD7hQ8yEL0EtXnLNIECtKrTBTTx8b+A==}
@@ -483,6 +483,22 @@ packages:
     engines: {node: '>=18'}
     hasBin: true
 
+  '@netlify/blobs@8.1.1':
+    resolution: {integrity: sha512-7Dg3PzArvQ0Owq4wpkLECC9iaDBOxuWUN2uwbQtUF6tZssyez2QN+eO0CjuIhhZUivbw+X9bwsyiEjWkdJnv/A==}
+    engines: {node: ^14.16.0 || >=16.0.0}
+
+  '@netlify/functions@2.8.2':
+    resolution: {integrity: sha512-DeoAQh8LuNPvBE4qsKlezjKj0PyXDryOFJfJKo3Z1qZLKzQ21sT314KQKPVjfvw6knqijj+IO+0kHXy/TJiqNA==}
+    engines: {node: '>=14.0.0'}
+
+  '@netlify/node-cookies@0.1.0':
+    resolution: {integrity: sha512-OAs1xG+FfLX0LoRASpqzVntVV/RpYkgpI0VrUnw2u0Q1qiZUzcPffxRK8HF3gc4GjuhG5ahOEMJ9bswBiZPq0g==}
+    engines: {node: ^14.16.0 || >=16.0.0}
+
+  '@netlify/serverless-functions-api@1.26.1':
+    resolution: {integrity: sha512-q3L9i3HoNfz0SGpTIS4zTcKBbRkxzCRpd169eyiTuk3IwcPC3/85mzLHranlKo2b+HYT0gu37YxGB45aD8A3Tw==}
+    engines: {node: '>=18.0.0'}
+
   '@nodelib/fs.scandir@2.1.5':
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
     engines: {node: '>= 8'}
@@ -688,37 +704,8 @@ packages:
   '@upstash/redis@1.34.4':
     resolution: {integrity: sha512-AZx2iD5s1Pu/KCrRA7KVCffu3NSoaYnNY7N9YI7aLAYhcJfsriQKTe+8OxQWJqGqFbrvm17Lyr9HFnDLvqNpfA==}
 
-  '@vercel/analytics@1.5.0':
-    resolution: {integrity: sha512-MYsBzfPki4gthY5HnYN7jgInhAZ7Ac1cYDoRWFomwGHWEX7odTEzbtg9kf/QSo7XEsEAqlQugA6gJ2WS2DEa3g==}
-    peerDependencies:
-      '@remix-run/react': ^2
-      '@sveltejs/kit': ^1 || ^2
-      next: '>= 13'
-      react: ^18 || ^19 || ^19.0.0-rc
-      svelte: '>= 4'
-      vue: ^3
-      vue-router: ^4
-    peerDependenciesMeta:
-      '@remix-run/react':
-        optional: true
-      '@sveltejs/kit':
-        optional: true
-      next:
-        optional: true
-      react:
-        optional: true
-      svelte:
-        optional: true
-      vue:
-        optional: true
-      vue-router:
-        optional: true
-
   '@vercel/build-utils@10.1.0':
     resolution: {integrity: sha512-JPff3brfZx0mTl+0Cmzz220MmnTSYnBgVqVvT6a8lVALJHr75sKaNxZy0/hWZe8ev+w2JwLGMmJwP2TKHtKeHA==}
-
-  '@vercel/edge@1.2.1':
-    resolution: {integrity: sha512-1++yncEyIAi68D3UEOlytYb1IUcIulMWdoSzX2h9LuSeeyR7JtaIgR8DcTQ6+DmYOQn+5MCh6LY+UmK6QBByNA==}
 
   '@vercel/error-utils@2.0.3':
     resolution: {integrity: sha512-CqC01WZxbLUxoiVdh9B/poPbNpY9U+tO1N9oWHwTl5YAZxcqXmmWJ8KNMFItJCUUWdY3J3xv8LvAuQv2KZ5YdQ==}
@@ -738,10 +725,6 @@ packages:
 
   '@vercel/hydrogen@1.1.0':
     resolution: {integrity: sha512-DNBj664OY5j8LBIp9EOLO+zjbSMT95YrfXp3/uhnpdHSmUBE5Iha4bJqV/4b3VL6b4lGFlTsK2jlyQZXWnPs+A==}
-
-  '@vercel/kv@3.0.0':
-    resolution: {integrity: sha512-pKT8fRnfyYk2MgvyB6fn6ipJPCdfZwiKDdw7vB+HL50rjboEBHDVBEcnwfkEpVSp2AjNtoaOUH7zG+bVC/rvSg==}
-    engines: {node: '>=14.6'}
 
   '@vercel/next@4.6.2':
     resolution: {integrity: sha512-+2w9At3cnf5dZRsEMXCSs4xA6UP3UhzVoNa/5/mVY3/hfADEfU/thKwOybQEHPkMbNuFwIYjnJkFZcsI8iOWxg==}
@@ -770,9 +753,6 @@ packages:
 
   '@vercel/routing-utils@5.0.2':
     resolution: {integrity: sha512-uJViB3+HEo+kzHYELs7cQWX5k0kCNvq9G/8nJQX8mP5Ta0fG68CBRmOaaG8A+2xbtTp/QuGORIwV8CsI9ebcNg==}
-
-  '@vercel/routing-utils@5.0.4':
-    resolution: {integrity: sha512-4ke67zkXVi2fRZdoYckABcsSkRC9CnrdadOGxoS/Bk22+ObHjGQWvUHExRSXh339anwu9YY7ZacNSGH4gUnTQA==}
 
   '@vercel/ruby@2.2.0':
     resolution: {integrity: sha512-FJF9gKVNHAljGOgV6zS5ou2N7ZgjOqMMtcPA5lsJEUI5/AZzVDWCmtcowTP80wEtHuupkd7d7M399FA082kXYQ==}
@@ -2418,6 +2398,9 @@ packages:
   uri-js@4.4.1:
     resolution: {integrity: sha512-7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==}
 
+  urlpattern-polyfill@8.0.2:
+    resolution: {integrity: sha512-Qp95D4TPJl1kC9SKigDcqgyM2VDVO4RiJc2d4qe5GrYm+zbIQCWWKAFaJNQ4BhdFeDGwBmAxqJBwWSJDb9T3BQ==}
+
   uuid@3.3.2:
     resolution: {integrity: sha512-yXJmeNaw3DnnKAOKJE51sL/ZaYfWJRl1pK9dr19YFCu0ObS231AB1/LbqTKRAQ5kw8A90rA6fr4riOUpTZvQZA==}
     deprecated: Please upgrade  to version 7 or higher.  Older versions may use Math.random() in certain circumstances, which is known to be problematic.  See https://v8.dev/blog/math-random for details.
@@ -2632,6 +2615,32 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
+  '@astrojs/netlify@6.2.0(@types/node@22.13.4)(astro@5.3.0(@netlify/blobs@8.1.1)(@types/node@22.13.4)(@upstash/redis@1.34.4)(rollup@4.34.7)(typescript@5.7.3))(rollup@4.34.7)':
+    dependencies:
+      '@astrojs/internal-helpers': 0.5.1
+      '@astrojs/underscore-redirects': 0.6.0
+      '@netlify/blobs': 8.1.1
+      '@netlify/functions': 2.8.2
+      '@vercel/nft': 0.29.1(rollup@4.34.7)
+      astro: 5.3.0(@netlify/blobs@8.1.1)(@types/node@22.13.4)(@upstash/redis@1.34.4)(rollup@4.34.7)(typescript@5.7.3)
+      esbuild: 0.24.2
+      vite: 6.1.0(@types/node@22.13.4)
+    transitivePeerDependencies:
+      - '@types/node'
+      - encoding
+      - jiti
+      - less
+      - lightningcss
+      - rollup
+      - sass
+      - sass-embedded
+      - stylus
+      - sugarss
+      - supports-color
+      - terser
+      - tsx
+      - yaml
+
   '@astrojs/prism@3.2.0':
     dependencies:
       prismjs: 1.29.0
@@ -2648,27 +2657,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@astrojs/vercel@8.0.7(astro@5.3.0(@types/node@22.13.4)(@upstash/redis@1.34.4)(@vercel/kv@3.0.0)(rollup@4.34.7)(typescript@5.7.3))(rollup@4.34.7)':
-    dependencies:
-      '@astrojs/internal-helpers': 0.5.1
-      '@vercel/analytics': 1.5.0
-      '@vercel/edge': 1.2.1
-      '@vercel/nft': 0.29.1(rollup@4.34.7)
-      '@vercel/routing-utils': 5.0.4
-      astro: 5.3.0(@types/node@22.13.4)(@upstash/redis@1.34.4)(@vercel/kv@3.0.0)(rollup@4.34.7)(typescript@5.7.3)
-      esbuild: 0.24.2
-      fast-glob: 3.3.3
-    transitivePeerDependencies:
-      - '@remix-run/react'
-      - '@sveltejs/kit'
-      - encoding
-      - next
-      - react
-      - rollup
-      - supports-color
-      - svelte
-      - vue
-      - vue-router
+  '@astrojs/underscore-redirects@0.6.0': {}
 
   '@atproto-labs/did-resolver@0.1.10':
     dependencies:
@@ -3027,6 +3016,19 @@ snapshots:
       - encoding
       - supports-color
 
+  '@netlify/blobs@8.1.1': {}
+
+  '@netlify/functions@2.8.2':
+    dependencies:
+      '@netlify/serverless-functions-api': 1.26.1
+
+  '@netlify/node-cookies@0.1.0': {}
+
+  '@netlify/serverless-functions-api@1.26.1':
+    dependencies:
+      '@netlify/node-cookies': 0.1.0
+      urlpattern-polyfill: 8.0.2
+
   '@nodelib/fs.scandir@2.1.5':
     dependencies:
       '@nodelib/fs.stat': 2.0.5
@@ -3200,12 +3202,9 @@ snapshots:
   '@upstash/redis@1.34.4':
     dependencies:
       crypto-js: 4.2.0
-
-  '@vercel/analytics@1.5.0': {}
+    optional: true
 
   '@vercel/build-utils@10.1.0': {}
-
-  '@vercel/edge@1.2.1': {}
 
   '@vercel/error-utils@2.0.3': {}
 
@@ -3252,10 +3251,6 @@ snapshots:
     dependencies:
       '@vercel/static-config': 3.0.0
       ts-morph: 12.0.0
-
-  '@vercel/kv@3.0.0':
-    dependencies:
-      '@upstash/redis': 1.34.4
 
   '@vercel/next@4.6.2(rollup@4.34.7)':
     dependencies:
@@ -3367,13 +3362,6 @@ snapshots:
     optionalDependencies:
       ajv: 6.12.6
 
-  '@vercel/routing-utils@5.0.4':
-    dependencies:
-      path-to-regexp: 6.1.0
-      path-to-regexp-updated: path-to-regexp@6.3.0
-    optionalDependencies:
-      ajv: 6.12.6
-
   '@vercel/ruby@2.2.0': {}
 
   '@vercel/static-build@2.6.6':
@@ -3453,7 +3441,7 @@ snapshots:
 
   array-iterate@2.0.1: {}
 
-  astro@5.3.0(@types/node@22.13.4)(@upstash/redis@1.34.4)(@vercel/kv@3.0.0)(rollup@4.34.7)(typescript@5.7.3):
+  astro@5.3.0(@netlify/blobs@8.1.1)(@types/node@22.13.4)(@upstash/redis@1.34.4)(rollup@4.34.7)(typescript@5.7.3):
     dependencies:
       '@astrojs/compiler': 2.10.4
       '@astrojs/internal-helpers': 0.5.1
@@ -3503,7 +3491,7 @@ snapshots:
       tsconfck: 3.1.5(typescript@5.7.3)
       ultrahtml: 1.5.3
       unist-util-visit: 5.0.0
-      unstorage: 1.14.4(@upstash/redis@1.34.4)(@vercel/kv@3.0.0)
+      unstorage: 1.14.4(@netlify/blobs@8.1.1)(@upstash/redis@1.34.4)
       vfile: 6.0.3
       vite: 6.1.0(@types/node@22.13.4)
       vitefu: 1.0.5(vite@6.1.0(@types/node@22.13.4))
@@ -3692,7 +3680,8 @@ snapshots:
     dependencies:
       uncrypto: 0.1.3
 
-  crypto-js@4.2.0: {}
+  crypto-js@4.2.0:
+    optional: true
 
   cssesc@3.0.0: {}
 
@@ -5254,7 +5243,7 @@ snapshots:
 
   unpipe@1.0.0: {}
 
-  unstorage@1.14.4(@upstash/redis@1.34.4)(@vercel/kv@3.0.0):
+  unstorage@1.14.4(@netlify/blobs@8.1.1)(@upstash/redis@1.34.4):
     dependencies:
       anymatch: 3.1.3
       chokidar: 3.6.0
@@ -5265,12 +5254,14 @@ snapshots:
       ofetch: 1.4.1
       ufo: 1.5.4
     optionalDependencies:
+      '@netlify/blobs': 8.1.1
       '@upstash/redis': 1.34.4
-      '@vercel/kv': 3.0.0
 
   uri-js@4.4.1:
     dependencies:
       punycode: 2.3.1
+
+  urlpattern-polyfill@8.0.2: {}
 
   uuid@3.3.2: {}
 
