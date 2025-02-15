@@ -1,7 +1,6 @@
 import type { MiddlewareHandler } from "astro"
 import publicClient from "./utilities/public-client"
 import "@atcute/bluesky/lexicons"
-import { ResponseType, XRPCError } from "@atproto/xrpc"
 import { sequence } from "astro:middleware"
 import { isValidHandle } from "@atproto/syntax"
 
@@ -46,11 +45,7 @@ const map: Record<string, MiddlewareHandler> = {
 						)
 				)
 			} catch (error) {
-				if (
-					error instanceof XRPCError &&
-					error.status ==
-						ResponseType.InvalidRequest
-				)
+				if ((error as any).status == 400)
 					return rewrite(
 						"/error/profile-not-found"
 					)

@@ -19,6 +19,7 @@
 		"astro": "^5.3.0",
 		"node:punycode": "npm:punycode",
 		"p-memoize": "^7.1.1",
+		"rollup-plugin-node-polyfills": "^0.2.1",
 		"seamless-scroll-polyfill": "^2.3.4",
 		"unstorage": "^1.14.4"
 	},
