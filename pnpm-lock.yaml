@@ -29,6 +29,9 @@ importers:
       is-valid-domain:
         specifier: ^0.1.6
         version: 0.1.6
+      node:punycode:
+        specifier: npm:punycode
+        version: punycode@2.3.1
       p-memoize:
         specifier: ^7.1.1
         version: 7.1.1
