@@ -69,15 +69,16 @@ const nonProfilePathnameMatchers = [
 ]
 
 export const onRequest = (async (context, next) => {
-	console.log(context.url.pathname)
+	const isNonProfilePathname =
+		nonProfilePathnameMatchers.some(matcher =>
+			matcher.test(context.url.pathname)
+		)
+
+	console.log(context.url.pathname, isNonProfilePathname)
 
 	if (context.url.pathname == "/")
 		return await removeEmptyQuery(context, next)
-	else if (
-		!nonProfilePathnameMatchers.some(matcher =>
-			matcher.test(context.url.pathname)
-		)
-	)
+	else if (!isNonProfilePathname)
 		return await profileHandler(context, next)
 	else return await next()
 }) as MiddlewareHandler
