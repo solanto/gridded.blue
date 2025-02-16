@@ -61,13 +61,7 @@ export const onRequest: MiddlewareHandler = async (
 ) => {
 	const handler = map[context.routePattern]
 
-	console.log(
-		context.originPathname,
-		"handler",
-		context.routePattern in map ?
-			context.routePattern
-		:	undefined
-	)
+	console.log(context)
 
 	return await (handler ?
 		(handler(context, next) as
