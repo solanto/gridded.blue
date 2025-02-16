@@ -15,10 +15,12 @@ const removeEmptyQuery = (async (
 
 const profileHandler = sequence(
 	async (
-		{ params: { profile }, locals, rewrite },
+		{ params: { profile }, locals, rewrite, redirect },
 		next
 	) => {
-		if (!isValidHandle(profile as string))
+		if (profile === undefined)
+			return redirect("/profile")
+		else if (!isValidHandle(profile as string))
 			return rewrite("/404")
 
 		try {
@@ -60,11 +62,14 @@ const nonProfilePathnameMatchers = [
 	/^\/images\/.*$/,
 	/^\/login$/,
 	/^\/login\/redirect$/,
-	/^\/logout$/
+	/^\/logout$/,
+	/^\/404$/,
+	/^\/500$/,
+	/^\/error\/.*$/
 ]
 
 export const onRequest = (async (context, next) => {
-	console.log(context)
+	console.log(context.url.pathname)
 
 	if (context.url.pathname == "/")
 		return await removeEmptyQuery(context, next)
