@@ -7,6 +7,7 @@
 	--accent-color: #006de2;
 	--accent-color__important: #e70a3e;
 	--accent-color__unimportant: #5e6d89;
+	--disabled-color: #5e6d89;
 
 	accent-color: var(--accent-color);
 
@@ -149,13 +150,20 @@ summary {
 	font-weight: 800;
 }
 
+button:disabled {
+	--accent-color: var(--disabled-color);
+	font-weight: inherit;
+}
+
 button.important,
 .important.check-button:has(:checked) {
 	--accent-color: var(--accent-color__important);
 }
 
 .link-button.unimportant {
-	--accent-color: var(--accent-color__unimportant);
+	background-color: transparent;
+	color: canvastext;
+	font-weight: inherit;
 }
 
 details {
@@ -182,16 +190,17 @@ img {
 @media (hover: hover) {
 	input[type="text"],
 	input[type="search"],
-	.check-button:not(:has(:checked)) {
+	.check-button:not(:has(:checked)),
+	.link-button.unimportant {
 		&:hover {
 			box-shadow: 0 0 0 var(--border-width) inset
 				var(--accent-color);
 		}
 	}
 
-	button:hover,
+	button:enabled:hover,
 	.check-button:has(:checked):hover,
-	.link-button:hover,
+	.link-button:not(.unimportant):hover,
 	summary:hover {
 		cursor: pointer;
 

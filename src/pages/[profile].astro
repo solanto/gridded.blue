@@ -193,7 +193,7 @@ else nextParams.delete("cursor")
 					/>
 					<datalist id="actor-datalist"></datalist>
 				</div>
-				<button type="submit">view</button>
+				<button type="submit" id="submit-button">view</button>
 			</fieldset>
 		</form>
 		<section class="profile-info">
@@ -259,33 +259,51 @@ else nextParams.delete("cursor")
 	import publicClient from "../utilities/public-client"
 	import { scrollIntoView } from "seamless-scroll-polyfill"
 	import type { IScrollConfig } from "seamless-scroll-polyfill/lib/scroll-step.d.ts"
+	import { isValidHandle } from "@atproto/syntax"
 
 	const actorDatalist = document.getElementById("actor-datalist")
 	const actorInputBox = document.getElementById("actor-input-box")
+	const submitButton = document.getElementById("submit-button")
 
 	actorInputBox
 		?.addEventListener("input",
-			({ target }) => (target as HTMLInputElement).value && publicClient.get("app.bsky.actor.searchActorsTypeahead",
-				{ params: { q: (target as HTMLInputElement).value } }
-			).then(
-				({ data: { actors } }) => {
-					const options = actors.map(
-						({ handle }) =>  {
-							const option = document.createElement("option")
-							option.setAttribute("value", handle)
+			({ target }) => {
+				if ((target as HTMLInputElement).value.trim())
+					publicClient.get(
+						"app.bsky.actor.searchActorsTypeahead",
+						{ params: { q: (target as HTMLInputElement).value } }
+					).then(
+						({ data: { actors } }) => {
+							console.log(actors.length == 0)
 
-							return option
+							if (
+								actors.length == 0
+								|| !actors
+									.map(({ handle }) => handle)
+									.includes((target as HTMLInputElement).value)
+							)
+								submitButton?.setAttribute("disabled", "true")
+							else submitButton?.removeAttribute("disabled")
+
+							const options = actors.map(
+								({ handle }) =>  {
+									const option = document.createElement("option")
+									option.setAttribute("value", handle)
+
+									return option
+								}
+							)
+
+							if (actorDatalist) {
+								actorDatalist.textContent = ""
+
+								for (const option of options)
+									actorDatalist.appendChild(option)
+							}
 						}
 					)
-
-					if (actorDatalist) {
-						actorDatalist.textContent = ""
-
-						for (const option of options)
-							actorDatalist.appendChild(option)
-					}
-				}
-			)
+				else submitButton?.setAttribute("disabled", "true")
+			}
 		)
 
 	const scrollOptions: ScrollIntoViewOptions = {
