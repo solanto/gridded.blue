@@ -20,8 +20,6 @@ const map: Record<string, MiddlewareHandler> = {
 			{ params: { profile }, locals, rewrite },
 			next
 		) => {
-			console.log("poo", profile)
-
 			if (!isValidHandle(profile as string))
 				return rewrite("/404")
 
@@ -62,6 +60,14 @@ export const onRequest: MiddlewareHandler = async (
 	next
 ) => {
 	const handler = map[context.routePattern]
+
+	console.log(
+		context.originPathname,
+		"handler",
+		context.routePattern in map ?
+			context.routePattern
+		:	undefined
+	)
 
 	return await (handler ?
 		(handler(context, next) as
