@@ -27,6 +27,7 @@
 		"@atproto-labs/simple-store": "^0.1.2",
 		"@atproto/xrpc": "^0.6.9",
 		"@types/node": "^22.13.4",
+		"netlify-cli": "^18.1.0",
 		"prettier": "^3.5.1",
 		"prettier-plugin-astro": "^0.14.1",
 		"ts-import": "5.0.0-beta.0",

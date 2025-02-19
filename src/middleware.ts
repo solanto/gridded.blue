@@ -8,7 +8,12 @@ const removeEmptyQuery = (async (
 	{ url: { href, pathname }, redirect },
 	next
 ) => {
-	if (href.endsWith("?")) return redirect(pathname)
+	console.log("checking for empty query on", href)
+
+	if (href.endsWith("?")) {
+		console.log("redirecting to", pathname)
+		return redirect(pathname)
+	}
 
 	return await next()
 }) satisfies MiddlewareHandler
@@ -18,10 +23,19 @@ const profileHandler = sequence(
 		{ params: { profile }, locals, rewrite, redirect },
 		next
 	) => {
-		if (profile === undefined)
+		console.log("handling profile")
+
+		if (profile === undefined) {
+			console.log(
+				"profile is undefined; redirecting to /profile"
+			)
 			return redirect("/profile")
-		else if (!isValidHandle(profile as string))
+		} else if (!isValidHandle(profile as string)) {
+			console.log(
+				"profile is not valid; redirecting to /404"
+			)
 			return rewrite("/404")
+		}
 
 		try {
 			const {
@@ -43,8 +57,12 @@ const profileHandler = sequence(
 					)
 			)
 		} catch (error) {
-			if ((error as any).status == 400)
+			if ((error as any).status == 400) {
+				console.log(
+					"profile is not found; redirecting to /error/profile-not-found"
+				)
 				return rewrite("/error/profile-not-found")
+			}
 		}
 
 		return await next()
@@ -74,7 +92,12 @@ export const onRequest = (async (context, next) => {
 			matcher.test(context.url.pathname)
 		)
 
-	console.log(context.url.pathname, isNonProfilePathname)
+	console.log(
+		context.url.pathname,
+		isNonProfilePathname ?
+			"is non-profile pathname"
+		:	"is profile pathname"
+	)
 
 	if (context.url.pathname == "/")
 		return await removeEmptyQuery(context, next)
