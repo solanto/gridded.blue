@@ -17,6 +17,8 @@ const { profile } = Astro.params as {
 	profile: string
 }
 
+console.log(Astro.params)
+
 const cursor = Astro.url.searchParams.get("cursor")
 
 const whitelist = whitelistFromSearchParams(Astro.url.searchParams)

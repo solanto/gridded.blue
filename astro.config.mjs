@@ -2,8 +2,8 @@
 import netlify from "@astrojs/netlify"
 import { loadEnv } from "vite"
 
-const { SITE_URL } = loadEnv(
-	process.env.SITE_URL ?? "",
+const { SITE } = loadEnv(
+	process.env.SITE ?? "",
 	process.cwd(),
 	""
 )
@@ -15,7 +15,7 @@ const config = {
 		edgeMiddleware: true,
 		imageCDN: false
 	}),
-	site: SITE_URL,
+	site: SITE,
 	vite: {
 		server: {
 			allowedHosts: [".share.zrok.io"]
