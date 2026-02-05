@@ -1,5 +1,5 @@
 // @ts-check
-import netlify from "@astrojs/netlify"
+import vercel from "@astrojs/vercel"
 import { loadEnv } from "vite"
 
 const { SITE } = loadEnv(
@@ -11,9 +11,9 @@ const { SITE } = loadEnv(
 // https://astro.build/config
 const config = {
 	output: "server",
-	adapter: netlify({
-		edgeMiddleware: true,
-		imageCDN: false
+	adapter: vercel({
+		edgeMiddleware: true
+		// imageCDN: false
 	}),
 	site: SITE,
 	vite: {

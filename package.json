@@ -10,6 +10,7 @@
 	},
 	"dependencies": {
 		"@astrojs/netlify": "^6.2.0",
+		"@astrojs/vercel": "^9.0.4",
 		"@atcute/bluesky": "^1.0.12",
 		"@atcute/client": "^2.0.7",
 		"@atproto/api": "^0.13.35",
