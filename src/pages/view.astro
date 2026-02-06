@@ -24,6 +24,8 @@ if (!profile) {
 	if (Astro.session)
 		Astro.url.searchParams.set("profile", await Astro.session.get("did"))
 	else Astro.url.searchParams.set("profile", "bsky.app")
+
+	return Astro.redirect(Astro.url)
 }
 
 const cursor = Astro.url.searchParams.get("cursor")
