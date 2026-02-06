@@ -5,7 +5,7 @@ export const GET: APIRoute = async ({
 	url: { searchParams },
 	session
 }) => {
-	session?.regenerate()
+	session?.destroy()
 
 	return Response.redirect(
 		await client.authorize("https://bsky.social", {
