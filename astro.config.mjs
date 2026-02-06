@@ -24,9 +24,6 @@ const config = {
 	image: {
 		domains: ["bsky.app"]
 	},
-	experimental: {
-		session: true
-	},
 	session: {
 		driver: "memory"
 	}
