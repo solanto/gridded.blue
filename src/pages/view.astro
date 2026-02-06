@@ -65,7 +65,7 @@ try {
 		console.log(
 			"profile is not found; redirecting to /error/profile-not-found"
 		)
-		return rewrite("/error/profile-not-found")
+		return Astro.rewrite("/error/profile-not-found")
 	}
 }
 
