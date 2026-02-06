@@ -25,6 +25,13 @@ class Store implements SimpleStore {
 // 			JoseKey.generate(["ES256"], crypto.randomUUID())
 // 		)
 // )
+// let keyset = await Promise.all(
+// 	new Array(5)
+// 		.fill(null)
+// 		.map(() =>
+// 			JoseKey.generate(["ES256"], crypto.randomUUID())
+// 		)
+// )
 
 // // use local keys in dev because auth server caches keys
 // // & considers new keys invalid until cache is refreshed
@@ -32,7 +39,14 @@ class Store implements SimpleStore {
 // 	const { readFileSync, writeFileSync } = await import(
 // 		"node:fs"
 // 	)
+// // use local keys in dev because auth server caches keys
+// // & considers new keys invalid until cache is refreshed
+// if (import.meta.env.DEV) {
+// 	const { readFileSync, writeFileSync } = await import(
+// 		"node:fs"
+// 	)
 
+// 	const jwkCache = ".jwks.json"
 // 	const jwkCache = ".jwks.json"
 
 // 	try {
@@ -52,13 +66,6 @@ class Store implements SimpleStore {
 // 		else throw error
 // 	}
 // }
-
-console.log(
-	JSON.parse(import.meta.env.JWKS).map(
-		({ jwk }: { jwk: Importable }) =>
-			JoseKey.fromImportable(jwk)
-	)
-)
 
 const client = new NodeOAuthClient({
 	// This object will be used to build the payload of the /client-metadata.json
