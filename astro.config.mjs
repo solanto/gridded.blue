@@ -23,9 +23,6 @@ const config = {
 	},
 	image: {
 		domains: ["bsky.app"]
-	},
-	session: {
-		driver: "memory"
 	}
 }
 
