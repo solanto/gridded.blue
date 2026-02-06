@@ -17,10 +17,16 @@ import "@atcute/bluesky/lexicons"
 // 	profile: string
 // }
 
-console.log(Astro.params)
+
+const profile = Astro.url.searchParams.get("profile")
+
+if (!profile) {
+	if (Astro.session)
+		Astro.url.searchParams.set("profile", await Astro.session.get("did"))
+	else Astro.url.searchParams.set("profile", "bsky.app")
+}
 
 const cursor = Astro.url.searchParams.get("cursor")
-const profile = Astro.url.searchParams.get("profile")
 
 const whitelist = whitelistFromSearchParams(Astro.url.searchParams)
 
