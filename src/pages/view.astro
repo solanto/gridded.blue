@@ -13,13 +13,14 @@ import Header from "../components/Header.astro"
 import { XRPCError } from "@atproto/xrpc"
 import "@atcute/bluesky/lexicons"
 
-const { profile } = Astro.params as {
-	profile: string
-}
+// const { profile } = Astro.params as {
+// 	profile: string
+// }
 
 console.log(Astro.params)
 
 const cursor = Astro.url.searchParams.get("cursor")
+const profile = Astro.url.searchParams.get("profile")
 
 const whitelist = whitelistFromSearchParams(Astro.url.searchParams)
 
@@ -38,7 +39,35 @@ if (!Object.values(labelWhitelist).some(value => value)) {
 	return Astro.redirect(Astro.url)
 }
 
-const { isProfilePublic } = Astro.locals
+let isProfilePublic = false
+
+try {
+	const {
+		data: { labels }
+	} = await publicClient.get(
+		"app.bsky.actor.getProfile",
+		{
+			params: {
+				actor: profile as string
+			}
+		}
+	)
+
+	isProfilePublic = Boolean(
+		labels &&
+			!labels.some(
+				({ val }) =>
+					val == "!no-unauthenticated"
+			)
+	)
+} catch (error) {
+	if ((error as any).status == 400) {
+		console.log(
+			"profile is not found; redirecting to /error/profile-not-found"
+		)
+		return rewrite("/error/profile-not-found")
+	}
+}
 
 const identity = await SessionGetter.identity(Astro.session as any)
 
@@ -49,7 +78,7 @@ let getAuthorFeed =
 	) as Promise<AppBskyFeedGetAuthorFeed.Response>
 
 const loginPromptRedirect = Astro.redirect(
-	"/?" + stateParams(Astro.url.searchParams, profile)
+	"/login?" + stateParams(Astro.url.searchParams, profile)
 )
 
 if (identity)

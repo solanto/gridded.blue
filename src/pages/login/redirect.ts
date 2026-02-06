@@ -23,11 +23,11 @@ export const GET: APIRoute = async ({
 
 	if (callback.state)
 		return redirect(
-			"/profile?" +
+			"/view?" +
 				new URLSearchParams(
 					JSON.parse(callback.state)
 				),
 			307
 		)
-	else return redirect("/profile", 307)
+	else return redirect("/view", 307)
 }

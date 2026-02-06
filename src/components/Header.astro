@@ -36,7 +36,7 @@ const { identity } = Astro.props
 						:	null}
 						<a
 							class="handle"
-							href={`/${identity.profile.handle}`}
+							href={`/view?profile=${identity.profile.handle}`}
 						>
 							@{identity.profile.handle}
 						</a>
