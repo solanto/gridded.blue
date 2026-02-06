@@ -12,7 +12,7 @@ const { SITE } = loadEnv(
 const config = {
 	output: "server",
 	adapter: netlify({
-		edgeMiddleware: true,
+		edgeMiddleware: false,
 		imageCDN: false
 	}),
 	site: SITE,
