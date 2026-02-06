@@ -18,40 +18,40 @@ class Store implements SimpleStore {
 	}
 }
 
-let keyset = await Promise.all(
-	new Array(5)
-		.fill(null)
-		.map(() =>
-			JoseKey.generate(["ES256"], crypto.randomUUID())
-		)
-)
+// let keyset = await Promise.all(
+// 	new Array(5)
+// 		.fill(null)
+// 		.map(() =>
+// 			JoseKey.generate(["ES256"], crypto.randomUUID())
+// 		)
+// )
 
-// use local keys in dev because auth server caches keys
-// & considers new keys invalid until cache is refreshed
-if (import.meta.env.DEV) {
-	const { readFileSync, writeFileSync } = await import(
-		"node:fs"
-	)
+// // use local keys in dev because auth server caches keys
+// // & considers new keys invalid until cache is refreshed
+// if (import.meta.env.DEV) {
+// 	const { readFileSync, writeFileSync } = await import(
+// 		"node:fs"
+// 	)
 
-	const jwkCache = ".jwks.json"
+// 	const jwkCache = ".jwks.json"
 
-	try {
-		keyset = await Promise.all(
-			JSON.parse(
-				readFileSync(jwkCache).toString()
-			).map(({ jwk }: { jwk: Importable }) =>
-				JoseKey.fromImportable(jwk)
-			)
-		)
-	} catch (error: unknown) {
-		if (
-			error instanceof Error &&
-			(error as any)?.code == "ENOENT"
-		)
-			writeFileSync(jwkCache, JSON.stringify(keyset))
-		else throw error
-	}
-}
+// 	try {
+// 		keyset = await Promise.all(
+// 			JSON.parse(
+// 				readFileSync(jwkCache).toString()
+// 			).map(({ jwk }: { jwk: Importable }) =>
+// 				JoseKey.fromImportable(jwk)
+// 			)
+// 		)
+// 	} catch (error: unknown) {
+// 		if (
+// 			error instanceof Error &&
+// 			(error as any)?.code == "ENOENT"
+// 		)
+// 			writeFileSync(jwkCache, JSON.stringify(keyset))
+// 		else throw error
+// 	}
+// }
 
 const client = new NodeOAuthClient({
 	// This object will be used to build the payload of the /client-metadata.json
@@ -60,7 +60,7 @@ const client = new NodeOAuthClient({
 
 	// Used to authenticate the client to the token endpoint. Will be used to
 	// build the jwks object to be exposed on the "jwks_uri" endpoint.
-	keyset,
+	keyset: JSON.parse(import.meta.env.JWKS),
 
 	// Interface to store authorization state data (during authorization flows)
 	stateStore: new Store(),
