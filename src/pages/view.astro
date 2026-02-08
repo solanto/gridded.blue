@@ -12,11 +12,11 @@ import Layout from "../layouts/Layout.astro"
 import Header from "../components/Header.astro"
 import { XRPCError } from "@atproto/xrpc"
 import "@atcute/bluesky/lexicons"
+import linkify from "linkify-string"
 
 // const { profile } = Astro.params as {
 // 	profile: string
 // }
-
 
 const profile = Astro.url.searchParams.get("profile")
 
@@ -251,7 +251,7 @@ else nextParams.delete("cursor")
 				class="profile-icon"
 			/>
 			<h1>{profileData.displayName}</h1>
-			<p class="bio">{profileData.description}</p>
+			<p class="bio" set:html={linkify(profileData.description ?? "", {})} />
 		</section>
 		<details>
 			<summary>share profile</summary>

@@ -18,6 +18,8 @@
 		"@atproto/oauth-client-node": "^0.2.11",
 		"@atproto/syntax": "^0.3.3",
 		"astro": "^5.17.1",
+		"linkify-string": "^4.3.2",
+		"linkifyjs": "^4.3.2",
 		"node:punycode": "npm:punycode",
 		"p-memoize": "^7.1.1",
 		"rollup-plugin-node-polyfills": "^0.2.1",
