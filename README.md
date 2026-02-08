@@ -17,9 +17,9 @@ pnpm install
 Some setup is necessary before hosting a gridded.blue server. Namely, the following environment variables must be set (manually or using a `.env` file):
 
 ```env
-DEV="true"                                  # true or false depending on whether you're hosting for development
-SITE="https://example.site.com" # the server's public base URL, via which Bluesky will communicate for OAuth
-JWKS='[{ "jwk": { ... } }, ...]'            # JWK keys for atproto OAuth
+DEV="true"                       # true or false depending on whether you're hosting for development
+SITE="https://example.site.com"  # the server's public base URL, via which Bluesky will communicate for OAuth
+JWKS='[{ "jwk": { ... } }, ...]' # JWK keys for atproto OAuth
 ```
 
 For development, you can get a public endpoint through free services like [zrok](https://zrok.io/).
