@@ -146,7 +146,7 @@ if (nextCursor) nextParams.set("cursor", nextCursor)
 else nextParams.delete("cursor")
 ---
 
-<Layout>
+<Layout title=`${profileData.displayName} (@${profileData.handle})`>
 	<Header identity={identity} />
 	<main>
 		<form

@@ -10,7 +10,7 @@ const { code } = Astro.props
 Astro.response.status = code
 ---
 
-<Layout>
+<Layout title=`error ${code}`>
 	<main>
 		<h1>error {code}</h1>
 		<p><slot /></p>
