@@ -1,48 +1,45 @@
-# Astro Starter Kit: Basics
+# <img src="https://raw.githubusercontent.com/solanto/gridded.blue/refs/heads/master/public/favicon.svg" height="32" alt="" style="display:inline"> gridded.blue
 
-```sh
-npm create astro@latest -- --template basics
+gridded.blue is a basic, online client for [Bluesky](https://bsky.social) that shows users' images and videos in a grid—similarly to social media platforms like Pixelfed and Instagram. Since gridded.blue is a web app, it should work on and platform with a web browser and internet access!
+
+In addition to viewing public profiles, you can view profiles that require login by authenticating with a Bluesky account.
+
+A public instance of gridded.blue is available [online](https://gridded.blue).
+
+## installing
+
+This project uses [pnpm](https://pnpm.io/) and is built for hosting on [Netlify](https://www.netlify.com/).
+
+```bash
+pnpm install
 ```
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/basics)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/basics)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/basics/devcontainer.json)
+Some setup is necessary before hosting a gridded.blue server. Namely, the following environment variables must be set (manually or using a `.env` file):
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
-
-![just-the-basics](https://github.com/withastro/astro/assets/2244813/a0a5533c-a856-4198-8470-2d67b1d7c554)
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src/
-│   ├── layouts/
-│   │   └── Layout.astro
-│   └── pages/
-│       └── index.astro
-└── package.json
+```env
+DEV="true"                                  # true or false depending on whether you're hosting for development
+SITE="https://example.site.com" # the server's public base URL, via which Bluesky will communicate for OAuth
+JWKS='[{ "jwk": { ... } }, ...]'            # JWK keys for atproto OAuth
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+For development, you can get a public endpoint through free services like [zrok](https://zrok.io/).
 
-## 🧞 Commands
+```bash
+zrok share public 8888
+```
 
-All commands are run from the root of the project, from a terminal:
+ Autogenerating JWKs for atproto's OAuth is still subject to experimentation for gridded.blue; temporarily uncomment the large, commented blocks in [`src/utilities/client.ts`](src/utilities/client.ts) to generate a `.jwks.json` that can be copied into the `JWKS` environment variable.
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+ Finally, run a development server.
 
-## 👀 Want to learn more?
+ ```bash
+ pnpm dev
+```
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+## contributing
+
+Feel free to ask questions here or at [person@dandelion.computer](mailto:person@dandelion.computer). I'll do my best to collaborate with those who'd like to!
+
+## license
+
+[GNU General Public License v3.0 or later](https://spdx.org/licenses/GPL-3.0-or-later.html). See license in [`LICENSE.md`](LICENSE.md).

@@ -2,11 +2,10 @@
 	"name": "gridded-blue",
 	"type": "module",
 	"version": "0.0.1",
+	"license": "GPL-3.0-or-later",
 	"scripts": {
-		"dev": "astro dev --host",
-		"build": "astro build",
-		"preview": "astro preview",
-		"astro": "astro"
+		"dev": "netlify dev",
+		"build": "netlify build"
 	},
 	"dependencies": {
 		"@astrojs/netlify": "^6.6.4",
