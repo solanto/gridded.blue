@@ -21,8 +21,10 @@ import linkify from "linkify-string"
 const profile = Astro.url.searchParams.get("profile")
 
 if (!profile) {
-	if (Astro.session)
-		Astro.url.searchParams.set("profile", await Astro.session.get("did"))
+	const maybeHandle = (await SessionGetter.profile(Astro.session))?.handle
+
+	if (maybeHandle)
+		Astro.url.searchParams.set("profile", maybeHandle)
 	else Astro.url.searchParams.set("profile", "bsky.app")
 
 	return Astro.redirect(Astro.url)
@@ -150,8 +152,9 @@ else nextParams.delete("cursor")
 	<Header identity={identity} />
 	<main>
 		<form
-			action="/profile"
+			action="/view"
 			class="query-form"
+			id="query-form"
 		>
 			<div class="toggles">
 				<label
@@ -166,7 +169,7 @@ else nextParams.delete("cursor")
 					/>
 					replies
 				</label>
-				<fieldset class="labels">
+				<fieldset class="labels" id="labels">
 					<label
 						for="unlabeled-toggle"
 						class="check-button"
@@ -298,23 +301,42 @@ else nextParams.delete("cursor")
 	import publicClient from "../utilities/public-client"
 	import { scrollIntoView } from "seamless-scroll-polyfill"
 	import type { IScrollConfig } from "seamless-scroll-polyfill/lib/scroll-step.d.ts"
-	import { isValidHandle } from "@atproto/syntax"
+	import { whitelistFromSearchParams } from "../utilities/accumulate-author-media"
+	import { shallowEqualObjects } from "shallow-equal"
+	// import { isValidHandle } from "@atproto/syntax"
 
 	const actorDatalist = document.getElementById("actor-datalist")
-	const actorInputBox = document.getElementById("actor-input-box")
+	const actorInputBox = document.getElementById("actor-input-box") as HTMLInputElement | null
 	const submitButton = document.getElementById("submit-button")
+	const labelFieldset = document.getElementById("labels")
+	const form = document.getElementById("query-form") as HTMLFormElement | null
+
+	const params = new URLSearchParams(document.location.search)
+
+	function updateSubmitText(): void {
+		if (form && submitButton && actorInputBox) {
+			const defaultText =
+				actorInputBox.value != params.get("profile") ||
+				shallowEqualObjects(
+					whitelistFromSearchParams(new FormData(form)),
+					whitelistFromSearchParams(params)
+				)
+
+			submitButton.innerText = defaultText ? "view" : "update"
+		}
+	}
 
 	actorInputBox
 		?.addEventListener("input",
 			({ target }) => {
+				updateSubmitText()
+
 				if ((target as HTMLInputElement).value.trim())
 					publicClient.get(
 						"app.bsky.actor.searchActorsTypeahead",
 						{ params: { q: (target as HTMLInputElement).value } }
 					).then(
 						({ data: { actors } }) => {
-							console.log(actors.length == 0)
-
 							if (
 								actors.length == 0
 								|| !actors
@@ -364,4 +386,6 @@ else nextParams.delete("cursor")
 		?.addEventListener("focusout",
 			() => scrollIntoView(document.body, scrollOptions, scrollConfig)
 		)
+	
+	labelFieldset?.addEventListener("change", updateSubmitText)
 </script>

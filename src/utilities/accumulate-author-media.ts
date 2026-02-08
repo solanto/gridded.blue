@@ -12,8 +12,8 @@ type PostTest = (post: FeedViewPost) => boolean
 
 const labelTest: (target: string) => PostTest =
 	target =>
-	({ post: { labels } }) =>
-		labels?.some(({ val }) => val == target) ?? false
+		({ post: { labels } }) =>
+			labels?.some(({ val }) => val == target) ?? false
 
 const suggestiveTest = labelTest("sexual"),
 	nudityTest = labelTest("nudity"),
@@ -41,14 +41,14 @@ export type Whitelist = {
 const whitelistOptions = Object.keys(whitelistTests)
 
 export const whitelistFromSearchParams: (
-	searchParams: URLSearchParams
+	searchParams: URLSearchParams | FormData
 ) => Whitelist = searchParams =>
-	Object.fromEntries(
-		whitelistOptions.map(key => [
-			key,
-			inputBoolean(searchParams.get(key))
-		])
-	) as Whitelist
+		Object.fromEntries(
+			whitelistOptions.map(key => [
+				key,
+				inputBoolean(searchParams.get(key))
+			])
+		) as Whitelist
 
 interface MediaItem {
 	thumbnail: string
@@ -97,7 +97,7 @@ const feedItemReducer = (whitelist: Whitelist) =>
 					flag:
 						embed.images.length > 1 ?
 							"multiple"
-						:	undefined
+							: undefined
 				}
 			]
 		} else if (Video.isView(embed))
