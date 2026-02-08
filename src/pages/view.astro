@@ -293,7 +293,7 @@ else nextParams.delete("cursor")
 				)
 			}
 		</ol>
-		{ nextCursor === null ? <></> : <a class="link-button" href={`/${profile}?${nextParams}`}>next</a> }
+		{ nextCursor === null ? <></> : <a class="link-button" href={`/profile=${profile}?${nextParams}`}>next</a> }
 	</main>
 </Layout>
 
