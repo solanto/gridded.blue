@@ -18,6 +18,14 @@ import linkify from "linkify-string"
 // 	profile: string
 // }
 
+if (Astro.url.searchParams.get("state")) {
+	Astro.url.searchParams.delete("state")
+	Astro.url.searchParams.delete("iss")
+	Astro.url.searchParams.delete("code")
+
+	return Astro.redirect(Astro.url)
+}
+
 const profile = Astro.url.searchParams.get("profile")
 
 if (!profile) {
