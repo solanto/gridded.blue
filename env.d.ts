@@ -5,7 +5,9 @@ import type {
 } from "@atproto/oauth-client-node"
 
 interface ImportMetaEnv {
-	readonly SITE_URL: OAuthHttpsRedirectURI
+	readonly DEV: "true" | "false"
+	readonly SITE: OAuthHttpsRedirectURI
+	readonly JWKS: string
 }
 
 interface ImportMeta {
