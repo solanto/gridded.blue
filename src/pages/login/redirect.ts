@@ -21,13 +21,20 @@ export const GET: APIRoute = async ({
 
 	session?.set("did", callback.session.did)
 
-	if (callback.state)
+	if (callback.state) {
+		const params = new URLSearchParams(
+			JSON.parse(callback.state)
+		)
+
+		params.delete("state")
+		params.delete("iss")
+		params.delete("code")
+
 		return redirect(
 			"/view?" +
-			new URLSearchParams(
-				JSON.parse(callback.state)
-			),
+			params,
 			307
 		)
+	}
 	else return redirect("/view", 307)
 }
