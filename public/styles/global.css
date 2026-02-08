@@ -5,6 +5,7 @@
 	color-scheme: light dark;
 
 	--accent-color: #006de2;
+	--accent-color__light: #5CABFF;
 	--accent-color__important: #e70a3e;
 	--accent-color__unimportant: #5e6d89;
 	--disabled-color: #5e6d89;
@@ -25,6 +26,14 @@ main {
 a,
 body .back-link.hydrated {
 	color: var(--accent-color);
+}
+
+@media (prefers-color-scheme: dark) {
+
+	a,
+	body .back-link.hydrated {
+		color: var(--accent-color__light);
+	}
 }
 
 input,
@@ -102,8 +111,7 @@ button,
 summary {
 	--padding-horizontal: 1ch;
 	--padding-vertical: 1cap;
-	padding: var(--padding-vertical)
-		var(--padding-horizontal);
+	padding: var(--padding-vertical) var(--padding-horizontal);
 }
 
 input[type="text"],
@@ -188,13 +196,13 @@ img {
 }
 
 @media (hover: hover) {
+
 	input[type="text"],
 	input[type="search"],
 	.check-button:not(:has(:checked)),
 	.link-button.unimportant {
 		&:hover {
-			box-shadow: 0 0 0 var(--border-width) inset
-				var(--accent-color);
+			box-shadow: 0 0 0 var(--border-width) inset var(--accent-color);
 		}
 	}
 
@@ -204,11 +212,9 @@ img {
 	summary:hover {
 		cursor: pointer;
 
-		--new-accent-color: color-mix(
-			in oklch,
-			var(--accent-color),
-			black 20%
-		);
+		--new-accent-color: color-mix(in oklch,
+				var(--accent-color),
+				black 20%);
 
 		background-color: var(--new-accent-color);
 		border-color: var(--new-accent-color);
@@ -218,9 +224,6 @@ img {
 .profile-icon {
 	border-radius: 50%;
 	aspect-ratio: 1;
-}
-
-.handle {
 }
 
 header {
@@ -296,9 +299,7 @@ header {
 	}
 
 	input {
-		padding-left: calc(
-			var(--padding-horizontal) + 1em + 0.25ch
-		);
+		padding-left: calc(var(--padding-horizontal) + 1em + 0.25ch);
 
 		&::-webkit-search-cancel-button {
 			-webkit-appearance: searchfield-cancel-button;
