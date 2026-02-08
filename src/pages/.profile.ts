@@ -14,13 +14,11 @@ export const GET: APIRoute = async ({
 
 		if (identity)
 			return redirect(
-				`/${identity.profile.handle}?${searchParams}`,
+				`/view?profile=${identity.profile.handle}${searchParams ? "&" + searchParams : ""}`,
 				303
 			)
-		else return redirect(`/?${searchParams}`, 307)
+		else return redirect(`/view${searchParams ? "?" + searchParams : ""}`, 307)
 	}
 
-	searchParams.delete("profile")
-
-	return redirect(`/${profile}?${searchParams}`, 307)
+	return redirect(`/view?profile=${profile}${searchParams ? "&" + searchParams : ""}`, 307)
 }
