@@ -1,6 +1,6 @@
 # <img src="https://raw.githubusercontent.com/solanto/gridded.blue/refs/heads/master/public/favicon.svg" height="32" alt="" style="display:inline"> gridded.blue
 
-gridded.blue is a basic, online client for [Bluesky](https://bsky.social) that shows users' images and videos in a grid—similarly to social media platforms like Pixelfed and Instagram. Since gridded.blue is a web app, it should work on and platform with a web browser and internet access!
+gridded.blue is a basic, online client for [Bluesky](https://bsky.social) that shows users' images and videos in a grid—similarly to social media platforms like Pixelfed and Instagram. Since gridded.blue is a web app, it should work on and platform with a web browser and internet access! gridded.blue is built with [Astro](https://astro.build/).
 
 In addition to viewing public profiles, you can view profiles that require login by authenticating with a Bluesky account.
 
