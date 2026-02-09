@@ -4,6 +4,8 @@ gridded.blue is a basic, online client for [Bluesky](https://bsky.social) that s
 
 In addition to viewing public profiles, you can view profiles that require login by authenticating with a Bluesky account.
 
+<a href="https://gridded.blue/view?profile=bsky.app"><img src="https://dandelion.computer/bundled/screenshot.DVvPgsiF_iFCXy.webp" height="500px" alt="A screenshot of gridded.blue's UI, viewing @bsky.app's profile. The page header has controls for which and whose images are shown. After @bsky.app's profile and bio, three of their posted images form their first row of media." /></a>
+
 A public instance of gridded.blue is available [online](https://gridded.blue).
 
 ## installing
