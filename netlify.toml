@@ -6,6 +6,11 @@ command = "astro dev"
 command = "astro build"
 
 [[headers]]
+for = "/styles/*"
+[headers.values]
+Content-Type = "text/css"
+
+[[headers]]
 for = "/*.js"
 [headers.values]
 Content-Type = "text/javascript"
@@ -14,11 +19,6 @@ Content-Type = "text/javascript"
 for = "/jwks.json"
 [headers.values]
 Content-Type = "text/json"
-
-[[headers]]
-for = "/styles/*"
-[headers.values]
-Content-Type = "text/css"
 
 [[headers]]
 for = "/favicon.ico"
