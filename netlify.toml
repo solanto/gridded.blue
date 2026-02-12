@@ -6,9 +6,9 @@ command = "astro dev"
 command = "astro build"
 
 [[headers]]
-for = "/*"
+for = "/*.js"
 [headers.values]
-Content-Type = "text/html"
+Content-Type = "text/javascript"
 
 [[headers]]
 for = "/jwks.json"
@@ -41,6 +41,6 @@ for = "/images/blank.png"
 Content-Type = "image/png"
 
 [[headers]]
-for = "/*.js"
+for = "/*"
 [headers.values]
-Content-Type = "text/javascript"
+Content-Type = "text/html"
