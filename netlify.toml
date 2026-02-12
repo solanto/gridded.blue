@@ -32,3 +32,8 @@ Content-Type = "image/png"
 for = "/images/blank.png"
 [headers.values]
 Content-Type = "image/png"
+
+[[headers]]
+for = "/_astro/*.js"
+[headers.values]
+Content-Type = "text/javascript"
