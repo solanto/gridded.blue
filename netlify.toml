@@ -41,6 +41,6 @@ for = "/images/blank.png"
 Content-Type = "image/png"
 
 [[headers]]
-for = "/_astro/*.js"
+for = "/*.js"
 [headers.values]
 Content-Type = "text/javascript"
