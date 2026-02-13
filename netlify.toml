@@ -6,7 +6,7 @@ command = "astro dev"
 command = "astro build"
 
 [[headers]]
-for = "/*"
+for = "/profile"
 [headers.values]
 Content-Type = "text/html"
 
