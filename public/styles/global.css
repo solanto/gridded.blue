@@ -248,6 +248,7 @@ header {
 			height: var(--height);
 			width: var(--height);
 			margin-right: 1ch;
+			background-color: var(--accent-color__unimportant);
 		}
 	}
 
@@ -341,6 +342,7 @@ label:has(#reply-toggle) {
 		object-fit: cover;
 		object-position: bottom;
 		max-height: 20vh;
+		background-color: var(--accent-color__unimportant);
 	}
 
 	.profile-icon {
@@ -350,6 +352,7 @@ label:has(#reply-toggle) {
 		width: auto;
 		outline: canvas var(--image-border-width) solid;
 		margin-top: calc(var(--height) / -2);
+		background-color: var(--accent-color__unimportant);
 	}
 
 	.bio {
