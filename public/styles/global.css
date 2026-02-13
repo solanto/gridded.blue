@@ -336,18 +336,19 @@ label:has(#reply-toggle) {
 }
 
 .profile-info {
+	--height: 10ex;
+
 	.banner {
 		width: 100%;
 		height: auto;
 		object-fit: cover;
 		object-position: bottom;
 		max-height: 20vh;
+		min-height: var(--height);
 		background-color: var(--accent-color__unimportant);
 	}
 
 	.profile-icon {
-		--height: 10ex;
-
 		height: var(--height);
 		width: auto;
 		outline: canvas var(--image-border-width) solid;
