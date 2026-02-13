@@ -181,9 +181,13 @@ details {
 		max-width: max-content;
 	}
 
-	&[open] summary {
-		max-width: 100%;
-		border-radius: 0;
+	&[open] {
+		margin: calc(-1 * var(--border-width));
+
+		summary {
+			max-width: 100%;
+			border-radius: 0;
+		}
 	}
 
 	p {
