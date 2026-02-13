@@ -8,13 +8,17 @@
 	--accent-color__light: #5CABFF;
 	--accent-color__important: #e70a3e;
 	--accent-color__unimportant: #5e6d89;
-	--disabled-color: #5e6d89;
+	--disabled-color: var(--accent-color__unimportant);
 
 	accent-color: var(--accent-color);
 
 	--image-border-width: 3px;
 
 	--page-padding: 0.75ex;
+}
+
+body {
+	overflow-x: hidden;
 }
 
 main {
@@ -271,8 +275,22 @@ header {
 	font-size: 120%;
 
 	button[type="submit"] {
+		transition:
+			width calc(var(--transition-duration) * 1.5),
+			color var(--transition-duration),
+			background-color var(--transition-duration),
+			font-weight var(--transition-duration),
+			border-color var(--transition-duration);
 		display: inline-block;
 		width: auto;
+		position: relative;
+
+		&.transitioning {
+			color: transparent;
+			--bright: color-mix(in oklab, var(--accent-color), var(--accent-color__light) 50%);
+			background-color: var(--bright);
+			border-color: var(--bright);
+		}
 	}
 
 	fieldset * {
@@ -464,6 +482,15 @@ i.share::after {
 
 		* {
 			margin-top: var(--gap);
+		}
+	}
+
+	.query-form button[type="submit"] {
+		width: 4em;
+		overflow-x: clip;
+
+		&.update {
+			width: 5em;
 		}
 	}
 

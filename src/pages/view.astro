@@ -331,7 +331,16 @@ else nextParams.delete("cursor")
 
 	const params = new URLSearchParams(document.location.search)
 
-	function updateSubmitText(): void {
+	function addTransitionedListener(f: (event: TransitionEvent) => any) {
+		submitButton?.addEventListener("transitionend",
+			(event: TransitionEvent) => {
+				f(event)
+			},
+			{ once: true }
+		)
+	}
+
+	function updateSubmitButton(): void {
 		if (form && submitButton && actorInputBox) {
 			const defaultText =
 				actorInputBox.value != params.get("profile") ||
@@ -340,14 +349,31 @@ else nextParams.delete("cursor")
 					whitelistFromSearchParams(params)
 				)
 
-			submitButton.innerText = defaultText ? "view" : "update"
+			if (defaultText) {
+				if (submitButton.classList.contains("update")) {
+					addTransitionedListener( () => {
+						submitButton.innerText = "view"
+						submitButton.classList.remove("transitioning")
+					})
+
+					submitButton.classList.add("transitioning")
+					submitButton.classList.remove("update")
+				}
+			} else if (!submitButton.classList.contains("update")) {
+				addTransitionedListener(() => {
+					submitButton.innerText = "update"
+					submitButton.classList.remove("transitioning")
+				})
+
+				submitButton.classList.add("update", "transitioning")
+			}
 		}
 	}
 
 	actorInputBox
 		?.addEventListener("input",
 			({ target }) => {
-				updateSubmitText()
+				updateSubmitButton()
 
 				if ((target as HTMLInputElement).value.trim())
 					publicClient.get(
@@ -405,5 +431,5 @@ else nextParams.delete("cursor")
 			() => scrollIntoView(document.body, scrollOptions, scrollConfig)
 		)
 	
-	labelFieldset?.addEventListener("change", updateSubmitText)
+	labelFieldset?.addEventListener("change", updateSubmitButton)
 </script>
