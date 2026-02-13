@@ -57,11 +57,30 @@ input[type="search"],
 button,
 .check-button,
 .banner,
-.feed li,
 .link-button,
+.feed,
 details,
 summary {
 	border-radius: 1ex;
+}
+
+.feed {
+	overflow: clip;
+
+
+	li {
+
+		&:last-of-type,
+		&:nth-child(3n):nth-last-child(3),
+		&:nth-child(3n):nth-last-child(2) {
+			border-bottom-right-radius: 1ex;
+		}
+
+		&:first-child:last-child,
+		&:nth-child(2n):last-child {
+			border-top-right-radius: 1ex;
+		}
+	}
 }
 
 .link-button {
