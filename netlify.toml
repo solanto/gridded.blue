@@ -6,6 +6,11 @@ command = "astro dev"
 command = "astro build"
 
 [[headers]]
+for = "/*"
+[headers.values]
+Content-Type = "text/html"
+
+[[headers]]
 for = "/styles/*"
 [headers.values]
 Content-Type = "text/css"
@@ -39,8 +44,3 @@ Content-Type = "image/svg+xml"
 for = "/images/blank.png"
 [headers.values]
 Content-Type = "image/png"
-
-[[headers]]
-for = "/*"
-[headers.values]
-Content-Type = "text/html"
