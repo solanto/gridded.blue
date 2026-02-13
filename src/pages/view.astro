@@ -12,7 +12,9 @@ import Layout from "../layouts/Layout.astro"
 import Header from "../components/Header.astro"
 import { XRPCError } from "@atproto/xrpc"
 import "@atcute/bluesky/lexicons"
-import linkify from "linkify-string"
+import linkify from "linkify-html"
+import { escapeHTML } from "astro/runtime/server/escape.js"
+
 
 // const { profile } = Astro.params as {
 // 	profile: string
@@ -258,7 +260,17 @@ else nextParams.delete("cursor")
 				class="profile-icon"
 			/>
 			<h1>{profileData.displayName}</h1>
-			<p class="bio" set:html={linkify(profileData.description ?? "", {})} />
+			<p class="bio" set:html={
+				linkify(
+					escapeHTML(profileData.description ?? "")
+						.replace(/@([a-z0-9.]+)/gi, (_, fragment) => {
+							const handle = fragment.replace(/\.$/, "")
+							const maybePeriod = fragment.endsWith(".") ? "." : ""
+
+							return `<a href="/view?profile=${handle}">@${handle}</a>${maybePeriod}`
+						}),
+				{})
+			} />
 		</section>
 		<details>
 			<summary>share profile</summary>
