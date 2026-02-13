@@ -248,15 +248,15 @@ else nextParams.delete("cursor")
 			<Image
 				src={profileData.banner ?? "/images/blank.png"}
 				alt=""
-				width="1500"
-				height="500"
+				height={300}
+				inferSize={true}
 				class="banner"
 			/>
 			<Image
 				src={profileData.avatar ?? "/images/blank.png"}
 				alt=""
-				width={12}
-				height={12}
+				width={80}
+				height={80}
 				class="profile-icon"
 			/>
 			<h1>{profileData.displayName}</h1>
@@ -301,6 +301,7 @@ else nextParams.delete("cursor")
 								<Image
 									src={thumbnail}
 									alt={alt}
+									height={300}
 									inferSize={true}
 								/>
 							</a>
