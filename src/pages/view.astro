@@ -327,6 +327,7 @@ else nextParams.delete("cursor")
 	const actorInputBox = document.getElementById("actor-input-box") as HTMLInputElement | null
 	const submitButton = document.getElementById("submit-button")
 	const labelFieldset = document.getElementById("labels")
+	const replyToggle = document.getElementById("reply-toggle")
 	const form = document.getElementById("query-form") as HTMLFormElement | null
 
 	const params = new URLSearchParams(document.location.search)
@@ -348,6 +349,8 @@ else nextParams.delete("cursor")
 					whitelistFromSearchParams(new FormData(form)),
 					whitelistFromSearchParams(params)
 				)
+
+			console.log(whitelistFromSearchParams(new FormData(form)))
 
 			if (defaultText) {
 				if (submitButton.classList.contains("update")) {
@@ -432,4 +435,5 @@ else nextParams.delete("cursor")
 		)
 	
 	labelFieldset?.addEventListener("change", updateSubmitButton)
+	replyToggle?.addEventListener("change", updateSubmitButton)
 </script>
