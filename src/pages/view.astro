@@ -269,7 +269,8 @@ else nextParams.delete("cursor")
 
 							return `<a href="/view?profile=${handle}">@${handle}</a>${maybePeriod}`
 						}),
-				{})
+					{ defaultProtocol: "https" }
+				)
 			} />
 		</section>
 		<details>
