@@ -22,7 +22,7 @@ const config = {
 		}
 	},
 	image: {
-		domains: ["bsky.app"]
+		domains: ["cdn.bsky.app"]
 	}
 }
 
