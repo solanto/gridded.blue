@@ -14,6 +14,7 @@ import { XRPCError } from "@atproto/xrpc"
 import "@atcute/bluesky/lexicons"
 import linkify from "linkify-html"
 import { escapeHTML } from "astro/runtime/server/escape.js"
+import bskyJpegToAvif from "../utilities/bsky-jpeg-to-avif"
 
 
 // const { profile } = Astro.params as {
@@ -246,7 +247,7 @@ else nextParams.delete("cursor")
 		</form>
 		<section class="profile-info">
 			<Image
-				src={profileData.banner ?? "/images/blank.png"}
+				src={bskyJpegToAvif(profileData.banner) ?? "/images/blank.png"}
 				alt=""
 				height={300}
 				inferSize={true}
@@ -256,7 +257,7 @@ else nextParams.delete("cursor")
 				quality="mid"
 			/>
 			<Image
-				src={profileData.avatar ?? "/images/blank.png"}
+				src={bskyJpegToAvif(profileData.avatar) ?? "/images/blank.png"}
 				alt=""
 				width={200}
 				height={200}
@@ -306,7 +307,7 @@ else nextParams.delete("cursor")
 								)}
 							>
 								<Image
-									src={thumbnail.replace(/@jpeg$/, "@avif")}
+									src={bskyJpegToAvif(thumbnail)}
 									alt={alt}
 									height={300}
 									inferSize={true}
