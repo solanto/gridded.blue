@@ -1,5 +1,6 @@
 // @ts-check
 import netlify from "@astrojs/netlify"
+import { defineConfig, passthroughImageService } from "astro/config"
 import { loadEnv } from "vite"
 
 const { SITE } = loadEnv(
@@ -9,7 +10,7 @@ const { SITE } = loadEnv(
 )
 
 // https://astro.build/config
-const config = {
+export default defineConfig({
 	output: "server",
 	adapter: netlify({
 		edgeMiddleware: false,
@@ -22,8 +23,6 @@ const config = {
 		}
 	},
 	image: {
-		domains: ["cdn.bsky.app", "video.bsky.app"]
+		service: passthroughImageService()
 	}
-}
-
-export default config
+})

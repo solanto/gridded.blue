@@ -251,13 +251,19 @@ else nextParams.delete("cursor")
 				height={300}
 				inferSize={true}
 				class="banner"
+				loading="eager"
+				decoding="sync"
+				quality="mid"
 			/>
 			<Image
 				src={profileData.avatar ?? "/images/blank.png"}
 				alt=""
-				width={80}
-				height={80}
+				width={200}
+				height={200}
 				class="profile-icon"
+				loading="eager"
+				decoding="sync"
+				quality="high"
 			/>
 			<h1>{profileData.displayName}</h1>
 			<p class="bio" set:html={
@@ -304,6 +310,7 @@ else nextParams.delete("cursor")
 									alt={alt}
 									height={300}
 									inferSize={true}
+									quality="max"
 								/>
 							</a>
 						</li>
