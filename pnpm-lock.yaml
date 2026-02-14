@@ -56,6 +56,9 @@ importers:
       shallow-equal:
         specifier: ^3.1.0
         version: 3.1.0
+      sharp:
+        specifier: ^0.34.5
+        version: 0.34.5
       unstorage:
         specifier: ^1.14.4
         version: 1.14.4(@netlify/blobs@10.5.0)(@upstash/redis@1.34.4)
@@ -7761,14 +7764,14 @@ snapshots:
 
   '@mapbox/node-pre-gyp@1.0.11(supports-color@9.4.0)':
     dependencies:
-      detect-libc: 2.0.3
+      detect-libc: 2.1.2
       https-proxy-agent: 5.0.1(supports-color@9.4.0)
       make-dir: 3.1.0
       node-fetch: 2.7.0
       nopt: 5.0.0
       npmlog: 5.0.1
       rimraf: 3.0.2
-      semver: 7.7.1
+      semver: 7.7.4
       tar: 6.2.1
     transitivePeerDependencies:
       - encoding
@@ -8950,7 +8953,7 @@ snapshots:
       debug: 4.4.0(supports-color@9.4.0)
       globby: 11.1.0
       is-glob: 4.0.3
-      semver: 7.7.1
+      semver: 7.7.4
       tsutils: 3.21.0(typescript@5.7.3)
     optionalDependencies:
       typescript: 5.7.3
@@ -9604,7 +9607,7 @@ snapshots:
 
   builtins@5.1.0:
     dependencies:
-      semver: 7.7.1
+      semver: 7.7.4
 
   byline@5.0.0: {}
 
@@ -11708,7 +11711,7 @@ snapshots:
 
   make-dir@4.0.0:
     dependencies:
-      semver: 7.7.1
+      semver: 7.7.4
 
   make-error@1.3.6: {}
 
@@ -12377,7 +12380,7 @@ snapshots:
 
   node-abi@3.74.0:
     dependencies:
-      semver: 7.7.1
+      semver: 7.7.4
 
   node-addon-api@6.1.0: {}
 
@@ -12429,13 +12432,13 @@ snapshots:
     dependencies:
       hosted-git-info: 4.1.0
       is-core-module: 2.16.1
-      semver: 7.7.1
+      semver: 7.7.4
       validate-npm-package-license: 3.0.4
 
   normalize-package-data@6.0.2:
     dependencies:
       hosted-git-info: 7.0.2
-      semver: 7.7.1
+      semver: 7.7.4
       validate-npm-package-license: 3.0.4
 
   normalize-path@2.1.1:
@@ -12646,7 +12649,7 @@ snapshots:
       ky: 1.7.5
       registry-auth-token: 5.1.0
       registry-url: 6.0.1
-      semver: 7.7.1
+      semver: 7.7.4
 
   package-manager-detector@1.6.0: {}
 
@@ -12804,7 +12807,7 @@ snapshots:
 
   prebuild-install@7.1.3:
     dependencies:
-      detect-libc: 2.0.3
+      detect-libc: 2.1.2
       expand-template: 2.0.3
       github-from-package: 0.0.0
       minimist: 1.2.8

@@ -24,6 +24,7 @@
 		"rollup-plugin-node-polyfills": "^0.2.1",
 		"seamless-scroll-polyfill": "^2.3.4",
 		"shallow-equal": "^3.1.0",
+		"sharp": "^0.34.5",
 		"unstorage": "^1.14.4"
 	},
 	"devDependencies": {
