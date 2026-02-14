@@ -306,7 +306,7 @@ else nextParams.delete("cursor")
 								)}
 							>
 								<Image
-									src={thumbnail}
+									src={thumbnail.replace(/@jpeg$/, "@avif")}
 									alt={alt}
 									height={300}
 									inferSize={true}
@@ -357,7 +357,7 @@ else nextParams.delete("cursor")
 					whitelistFromSearchParams(params)
 				)
 
-			console.log(whitelistFromSearchParams(new FormData(form)))
+			// console.log(whitelistFromSearchParams(new FormData(form)))
 
 			if (defaultText) {
 				if (submitButton.classList.contains("update")) {
