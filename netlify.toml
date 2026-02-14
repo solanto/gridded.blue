@@ -8,4 +8,22 @@ command = "astro build"
 [images]
 remote_images = ["https://cdn.bsky.app/.*"]
 
+[[headers]]
+for = "/"
+[headers.values]
+Content-Type = "text/html; charset=utf-8"
 
+[[headers]]
+for = "/view"
+[headers.values]
+Content-Type = "text/html; charset=utf-8"
+
+[[headers]]
+for = "/login"
+[headers.values]
+Content-Type = "text/html; charset=utf-8"
+
+[[headers]]
+for = "/login/redirect"
+[headers.values]
+Content-Type = "text/html; charset=utf-8"
