@@ -5,8 +5,8 @@ command = "astro dev"
 [build]
 command = "astro build"
 
-[images]
-remote_images = ["https://cdn.bsky.app/.*"]
+# [images]
+# remote_images = ["https://cdn.bsky.app/.*", "https://video.bsky.app/.*"]
 
 [[headers]]
 for = "/"
