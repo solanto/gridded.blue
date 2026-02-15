@@ -23,6 +23,7 @@ export default defineConfig({
 		}
 	},
 	image: {
-		service: passthroughImageService()
+		service: passthroughImageService(),
+		// domains: ["cdn.bsky.app", "video.bsky.app"]
 	}
 })
