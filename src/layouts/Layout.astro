@@ -32,9 +32,12 @@ const { title } = Astro.props
 		/>
 		<link rel="stylesheet" href="/styles/global.css" />
 		<meta name="generator" content={Astro.generator} />
-		<title>
-			{(title ? title + " ▪ " : "") + "gridded.blue"}
-		</title>
+		<meta property="og:type" content="website" />
+		<slot name="head" />
+		<!-- prettier-ignore -->
+		<title>{(title ? title + " ▪ " : "") + "gridded.blue"}</title>
+
+
 	</head>
 	<body>
 		<slot />

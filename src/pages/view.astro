@@ -34,6 +34,8 @@ if (!profile || Astro.url.searchParams.get("state")) {
 	Astro.url.searchParams.delete("iss")
 	Astro.url.searchParams.delete("code")
 
+	Astro.url.searchParams.sort()
+
 	return Astro.redirect(Astro.url)
 }
 
@@ -45,6 +47,8 @@ if (!Object.values(whitelist).some(value => value)) {
 	Astro.url.searchParams.set("reply", "on")
 	Astro.url.searchParams.set("unlabeled", "on")
 
+	Astro.url.searchParams.sort()
+
 	return Astro.redirect(Astro.url)
 }
 
@@ -52,6 +56,8 @@ const { reply: _, ...labelWhitelist } = whitelist
 
 if (!Object.values(labelWhitelist).some(value => value)) {
 	Astro.url.searchParams.set("unlabeled", "on")
+
+	Astro.url.searchParams.sort()
 
 	return Astro.redirect(Astro.url)
 }
@@ -153,9 +159,32 @@ const nextParams = new URLSearchParams(Astro.url.searchParams)
 
 if (nextCursor) nextParams.set("cursor", nextCursor)
 else nextParams.delete("cursor")
+
+nextParams.sort()
+
+const canonicalURL = new URL(Astro.url)
+canonicalURL.searchParams.delete("cursor")
+canonicalURL.searchParams.sort()
+
+const title = `${profileData.displayName} (@${profileData.handle})`
 ---
 
-<Layout title=`${profileData.displayName} (@${profileData.handle})`>
+<Layout {title}>
+	<Fragment slot="head">
+		<meta name="description" content={
+			isProfilePublic ?
+				profileData.description ?? ""
+			: "Log in to view this profile."}>
+		<meta name="og:url" content={canonicalURL}>
+		<meta property="og:title"
+			content=`${isProfilePublic ? "" : "log in to see "}${title}`>
+		<meta property="og:image" content={
+			isProfilePublic && profileData.banner ?
+				profileData.banner
+			: ""
+		}>
+	</Fragment>
+
 	<Header identity={identity} />
 	<main>
 		<form
