@@ -299,12 +299,20 @@ const title = `${profileData.displayName} (@${profileData.handle})`
 			<p class="bio" set:html={
 				linkify(
 					escapeHTML(profileData.description ?? "")
-						.replace(/@([a-z0-9.]+)/gi, (_, fragment) => {
-							const handle = fragment.replace(/\.$/, "")
-							const maybePeriod = fragment.endsWith(".") ? "." : ""
+						.replace(
+							/([^a-z0-9.])@([a-z0-9.]+)/gi,
+							(_, before: string, fragment: string) => {
+								const handle = fragment.replace(
+									/\.$/,
+									""
+								)
 
-							return `<a href="/view?profile=${handle}">@${handle}</a>${maybePeriod}`
-						}),
+								const maybePeriod =
+									fragment.endsWith(".") ? "." : ""
+
+								return `${before}<a href="/view?profile=${handle}">@${handle}</a>${maybePeriod}`
+							}
+						),
 					{ defaultProtocol: "https" }
 				)
 			} />
