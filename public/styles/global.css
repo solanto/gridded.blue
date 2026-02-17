@@ -6,6 +6,7 @@
 
 	--accent-color: #006de2;
 	--accent-color__light: #5CABFF;
+	--accent-color__lighter: #BADCFF;
 	--accent-color__important: #e70a3e;
 	--accent-color__unimportant: #5e6d89;
 	--disabled-color: var(--accent-color__unimportant);
@@ -15,6 +16,16 @@
 	--image-border-width: 3px;
 
 	--page-padding: 0.75ex;
+}
+
+.visually-hidden {
+	clip: rect(0 0 0 0);
+	clip-path: inset(50%);
+	height: 1px;
+	overflow: hidden;
+	position: absolute;
+	white-space: nowrap;
+	width: 1px;
 }
 
 body {
@@ -39,10 +50,17 @@ br {
 }
 
 aside {
+	--accent-color: var(--accent-color__lighter);
+	--accent-color-light: var(--accent-color__lighter);
+
 	border: 1pt var(--accent-color__unimportant) solid;
 	border-radius: 1ex;
 	padding: 1ex;
 	background-color: color-mix(in lab, canvas, var(--accent-color__unimportant) 50%);
+
+	a {
+		color: var(--accent-color__lighter);
+	}
 
 	*:first-child {
 		margin-block-start: 0;
@@ -54,8 +72,6 @@ aside {
 }
 
 .shortcut-demo {
-	/* width: 100%;
-	height: auto; */
 	height: 20rem;
 	width: auto;
 }
