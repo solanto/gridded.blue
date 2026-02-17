@@ -50,17 +50,17 @@ br {
 }
 
 aside {
-	--accent-color: var(--accent-color__lighter);
-	--accent-color-light: var(--accent-color__lighter);
+	/* --accent-color: var(--accent-color__lighter);
+	--accent-color-light: var(--accent-color__lighter); */
 
 	border: 1pt var(--accent-color__unimportant) solid;
 	border-radius: 1ex;
 	padding: 1ex;
-	background-color: color-mix(in lab, canvas, var(--accent-color__unimportant) 50%);
+	/* background-color: color-mix(in lab, canvas, var(--accent-color__unimportant) 50%);
 
 	a {
 		color: var(--accent-color__lighter);
-	}
+	} */
 
 	*:first-child {
 		margin-block-start: 0;
