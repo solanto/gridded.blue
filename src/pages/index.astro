@@ -3,6 +3,8 @@ import Layout from "../layouts/Layout.astro"
 import publicClient from "../utilities/public-client"
 import { isValidHandle } from "@atproto/syntax"
 import { XRPCError, ResponseType } from "@atproto/xrpc"
+import shortcutDemo from "../images/shortcut-demo.avif"
+import Image from "astro/components/Image.astro"
 
 const profile = Astro.url.searchParams.get("profile")
 
@@ -44,30 +46,73 @@ if (profile) {
 				href="https://bsky.social">Bluesky</a
 			>.
 		</p>
-		<a
-			href={`/login?${Astro.url.searchParams}`}
-			class="link-button"
-			id="log-in"
-		>
-			log in
-		</a>
-		{
-			profile ?
-				<span>
-					{" "}
-					to view{" "}
-					{profileName +
-						(profileName.endsWith("s") ? "'" : (
-							"'s"
-						))}{" "}
-					profile.
-				</span>
-			:	<a
-					href={`/view?profile=bsky.app`}
+		<p>
+			<a
+				href={`/login?${Astro.url.searchParams}`}
+				class="link-button"
+				id="log-in"
+			>
+				log in
+			</a>
+			<br />
+			{
+				profile ?
+					<span>
+						{" "}
+						to view{" "}
+						{profileName +
+							(profileName.endsWith("s") ? "'"
+							:	"'s")}{" "}
+						profile.
+					</span>
+				:	<a
+						href={`/view?profile=bsky.app`}
+						class="link-button unimportant"
+					>
+						view a public profile
+					</a>
+			}
+		</p>
+		<aside>
+			<h2>on an Apple device?</h2>
+			<p>
+				You can use a <a
+					href="https://support.apple.com/guide/shortcuts/welcome/ios"
+					>shortcut</a
+				> to open any profile from the Bluesky app in
+				gridded.blue.
+			</p>
+			<video
+				width="300"
+				height="300"
+				class="shortcut-demo"
+				autoplay
+				playsinline
+				loop
+				muted
+				preload="none"
+			>
+				<source src="/images/shortcut-demo.mp4" />
+				<p>test</p>
+			</video>
+			<p>
+				<a
+					href="https://www.icloud.com/shortcuts/fe568b1175bb48a1a2d5c5d6f981ccbf"
 					class="link-button unimportant"
+					>get the shortcut</a
 				>
-					view a public profile
-				</a>
-		}
+			</p>
+		</aside>
 	</main>
 </Layout>
+
+<style>
+	h1 {
+		font-size: 3rem;
+		margin-block-start: clamp(1rem, 15vh, 10rem);
+	}
+
+	aside {
+		margin-block-start: clamp(1rem, 30vh, 15rem);
+	}
+</style>
