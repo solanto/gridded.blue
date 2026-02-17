@@ -295,6 +295,7 @@ const title = `${profileData.displayName} (@${profileData.handle})`
 				decoding="sync"
 				quality="high"
 			/>
+			<a class="link-button unimportant bsky-link" href=`https://bsky.app/profile/${profile}`>view on Bluesky</a>
 			<h1>{profileData.displayName}</h1>
 			<p class="bio" set:html={
 				linkify(
